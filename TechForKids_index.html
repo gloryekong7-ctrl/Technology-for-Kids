@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech for Kids — Opendoors International School</title>
+  <meta name="description" content="A free Learning Management System for school students. 6 courses, 28 lessons, student and admin portals.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: #F0F4FF; }
+    #root { min-height: 100vh; }
+    #loading { display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; color: #1E2D6B; font-size: 18px; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="root"><div id="loading">Loading Tech for Kids...</div></div>
+  <script>
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+const { useState, useEffect, useCallback, useRef } = React;
+const SCHOOL_LOGO = "data:image/jpeg;base64,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";
+if (!window.__TLT__ || window.__TLT__._v !== "4") {
+  window.__TLT__ = {
+    _v: "4",
+    students: {},
+    admins: { ADMIN001: { id: "ADMIN001", name: "Admin", pw: "admin123", role: "admin" } },
+    globalLog: [],
+    metrics: { totalLogins: 0, totalLessons: 0, totalQuizzes: 0, totalTimeMin: 0 },
+    announcements: [
+      { id: 1, text: "Welcome to the Learning Tool! \u{1F680} Start with Internet Safety.", date: "2026-02-20", author: "Admin" },
+      { id: 2, text: "New course added: Building Dashboards! Check it out.", date: "2026-02-25", author: "Admin" }
+    ],
+    lastUpload: { course: "Spreadsheets & Data", lesson: "Real-World Spreadsheet Project", date: "2026-02-25" }
+  };
+  const seedStudents = [
+    { id: "DEMO/GRADE3/1001", name: "Angela Bola Igwe", year: 1, cls: "GRADE 3", pw: "demograde31001" },
+    { id: "DEMO/GRADE3/1002", name: "Folasade Tolulope Williams", year: 1, cls: "GRADE 3", pw: "demograde31002" },
+    { id: "DEMO/GRADE3/1003", name: "Uchenna Wale Adesanya", year: 1, cls: "GRADE 3", pw: "demograde31003" },
+    { id: "DEMO/GRADE3/1004", name: "Thomas Chinyere Okonkwo", year: 1, cls: "GRADE 3", pw: "demograde31004" },
+    { id: "DEMO/GRADE3/1005", name: "Gloria Hope Obi", year: 1, cls: "GRADE 3", pw: "demograde31005" },
+    { id: "DEMO/GRADE3/1006", name: "Divine Olu Bello", year: 1, cls: "GRADE 3", pw: "demograde31006" },
+    { id: "DEMO/GRADE3/1007", name: "Nkechi Chukwuemeka Igwe", year: 1, cls: "GRADE 3", pw: "demograde31007" },
+    { id: "DEMO/GRADE3/1008", name: "Goodness Chidinma Agboola", year: 1, cls: "GRADE 3", pw: "demograde31008" },
+    { id: "DEMO/GRADE3/1009", name: "John Ifechukwu Eke", year: 1, cls: "GRADE 3", pw: "demograde31009" },
+    { id: "DEMO/GRADE3/1010", name: "Gloria Tolulope Okafor", year: 1, cls: "GRADE 3", pw: "demograde31010" },
+    { id: "DEMO/GRADE3/1011", name: "Adunola Chizaram Cookey", year: 1, cls: "GRADE 3", pw: "demograde31011" },
+    { id: "DEMO/GRADE3/1012", name: "Musa Tolulope Oduya", year: 1, cls: "GRADE 3", pw: "demograde31012" },
+    { id: "DEMO/GRADE3/1013", name: "Kelechi James Adesanya", year: 1, cls: "GRADE 3", pw: "demograde31013" },
+    { id: "DEMO/GRADE3/1014", name: "Daniel Paul Babatunde", year: 1, cls: "GRADE 3", pw: "demograde31014" },
+    { id: "DEMO/GRADE3/1015", name: "Halima John Jones", year: 1, cls: "GRADE 3", pw: "demograde31015" },
+    { id: "DEMO/GRADE3/1016", name: "Grace Peace Agbaje", year: 1, cls: "GRADE 3", pw: "demograde31016" },
+    { id: "DEMO/GRADE3/1017", name: "Caleb Paul Adeyemi", year: 1, cls: "GRADE 3", pw: "demograde31017" },
+    { id: "DEMO/GRADE3/1018", name: "Precious Oluwafunke Quansah", year: 1, cls: "GRADE 3", pw: "demograde31018" },
+    { id: "DEMO/GRADE3/1019", name: "Patience Chidinma Onuoha", year: 1, cls: "GRADE 3", pw: "demograde31019" },
+    { id: "DEMO/GRADE4/1020", name: "Grace Ifechukwu Taylor", year: 1, cls: "GRADE 4", pw: "demograde41020" },
+    { id: "DEMO/GRADE4/1021", name: "Emmanuel Ifechukwu Babatunde", year: 1, cls: "GRADE 4", pw: "demograde41021" },
+    { id: "DEMO/GRADE4/1022", name: "Nasiru Tolulope Wike", year: 1, cls: "GRADE 4", pw: "demograde41022" },
+    { id: "DEMO/GRADE4/1023", name: "Angela Peter Ibrahim", year: 1, cls: "GRADE 4", pw: "demograde41023" },
+    { id: "DEMO/GRADE4/1024", name: "Usman John Usman", year: 1, cls: "GRADE 4", pw: "demograde41024" },
+    { id: "DEMO/GRADE4/1025", name: "Linda Tolulope Nwankwo", year: 1, cls: "GRADE 4", pw: "demograde41025" },
+    { id: "DEMO/GRADE4/1026", name: "Success Chizaram Agbaje", year: 1, cls: "GRADE 4", pw: "demograde41026" },
+    { id: "DEMO/GRADE4/1027", name: "Ayodeji Oluwakemi Ibrahim", year: 1, cls: "GRADE 4", pw: "demograde41027" },
+    { id: "DEMO/GRADE5/1028", name: "Lydia Paul Miller", year: 1, cls: "GRADE 5", pw: "demograde51028" },
+    { id: "DEMO/GRADE5/1029", name: "Angela Adaora Yusuf", year: 1, cls: "GRADE 5", pw: "demograde51029" },
+    { id: "DEMO/GRADE5/1030", name: "Barbara Michael Obiora", year: 1, cls: "GRADE 5", pw: "demograde51030" },
+    { id: "DEMO/GRADE5/1031", name: "Nkechi Obi Mensah", year: 1, cls: "GRADE 5", pw: "demograde51031" },
+    { id: "DEMO/GRADE5/1032", name: "Mary Tolulope Onuoha", year: 1, cls: "GRADE 5", pw: "demograde51032" },
+    { id: "DEMO/GRADE5/1033", name: "Kelechi Obiageli Mensah", year: 1, cls: "GRADE 5", pw: "demograde51033" },
+    { id: "DEMO/GRADE5/1034", name: "Kelechi Chibueze Sokari", year: 1, cls: "GRADE 5", pw: "demograde51034" },
+    { id: "DEMO/GRADE5/1035", name: "Robert Peace Akinwale", year: 1, cls: "GRADE 5", pw: "demograde51035" },
+    { id: "DEMO/GRADE5/1036", name: "Seun Wale Williams", year: 1, cls: "GRADE 5", pw: "demograde51036" },
+    { id: "DEMO/GRADE5/1037", name: "Adeola Adaora Agbaje", year: 1, cls: "GRADE 5", pw: "demograde51037" },
+    { id: "DEMO/GRADE5/1038", name: "Seun Chigozie Cookey", year: 1, cls: "GRADE 5", pw: "demograde51038" },
+    { id: "DEMO/GRADE5/1039", name: "Mercy Grace Quansah", year: 1, cls: "GRADE 5", pw: "demograde51039" },
+    { id: "DEMO/GRADE5/1040", name: "Uchenna Wale Afolabi", year: 1, cls: "GRADE 5", pw: "demograde51040" },
+    { id: "DEMO/GRADE5/1041", name: "Abena Olu Nwachukwu", year: 1, cls: "GRADE 5", pw: "demograde51041" },
+    { id: "DEMO/GRADE5/1042", name: "Joshua Femi Ibrahim", year: 1, cls: "GRADE 5", pw: "demograde51042" },
+    { id: "DEMO/GRADE5/1043", name: "Barbara Hope Onuoha", year: 1, cls: "GRADE 5", pw: "demograde51043" },
+    { id: "DEMO/GRADE5/1044", name: "Hauwa Paul Okeke", year: 1, cls: "GRADE 5", pw: "demograde51044" },
+    { id: "DEMO/GRADE5/1045", name: "Efua Adebimpe Nwosu", year: 1, cls: "GRADE 5", pw: "demograde51045" },
+    { id: "DEMO/GRADE5/1046", name: "Barbara Bola Agbaje", year: 1, cls: "GRADE 5", pw: "demograde51046" },
+    { id: "DEMO/GRADE5/1047", name: "Oluwafemi Tolulope Owusu", year: 1, cls: "GRADE 5", pw: "demograde51047" },
+    { id: "DEMO/GRADE5/1048", name: "Joshua Oluwafunke Fubara", year: 1, cls: "GRADE 5", pw: "demograde51048" },
+    { id: "DEMO/GRADE5/1049", name: "Chidi Peace Okafor", year: 1, cls: "GRADE 5", pw: "demograde51049" },
+    { id: "DEMO/GRADE5/1050", name: "Olumide Adebimpe Adeyinka", year: 1, cls: "GRADE 5", pw: "demograde51050" },
+    { id: "DEMO/JSS1/1051", name: "Adunola Amarachi Adeyinka", year: 2, cls: "JSS 1", pw: "demojss11051" },
+    { id: "DEMO/JSS1/1052", name: "David Adewale Adeyinka", year: 2, cls: "JSS 1", pw: "demojss11052" },
+    { id: "DEMO/JSS1/1053", name: "Success Chidinma Oduya", year: 2, cls: "JSS 1", pw: "demojss11053" },
+    { id: "DEMO/JSS1/1054", name: "Usman Chizaram Agboola", year: 2, cls: "JSS 1", pw: "demojss11054" },
+    { id: "DEMO/JSS1/1055", name: "Adetutu Onyekachi Okafor", year: 2, cls: "JSS 1", pw: "demojss11055" },
+    { id: "DEMO/JSS1/1056", name: "Victor Michael Adesola", year: 2, cls: "JSS 1", pw: "demojss11056" },
+    { id: "DEMO/JSS1/1057", name: "Blessing Bola Quansah", year: 2, cls: "JSS 1", pw: "demojss11057" },
+    { id: "DEMO/JSS1/1058", name: "Dayo Oluwakemi Obiora", year: 2, cls: "JSS 1", pw: "demojss11058" },
+    { id: "DEMO/JSS1/1059", name: "Tunde Obiageli Adeyemi", year: 2, cls: "JSS 1", pw: "demojss11059" },
+    { id: "DEMO/JSS1/1060", name: "Emmanuel Chibueze Onuoha", year: 2, cls: "JSS 1", pw: "demojss11060" },
+    { id: "DEMO/JSS1/1061", name: "Adunola Chinyere Fashola", year: 2, cls: "JSS 1", pw: "demojss11061" },
+    { id: "DEMO/JSS2A/1062", name: "Miriam Tochukwu Musa", year: 2, cls: "JSS 2A", pw: "demojss2a1062" },
+    { id: "DEMO/JSS2A/1063", name: "Seun Onyekachi Cookey", year: 2, cls: "JSS 2A", pw: "demojss2a1063" },
+    { id: "DEMO/JSS2A/1064", name: "Kelechi Chinyere Abdullahi", year: 2, cls: "JSS 2A", pw: "demojss2a1064" },
+    { id: "DEMO/JSS2A/1065", name: "Adebayo Adewale Tamuno", year: 2, cls: "JSS 2A", pw: "demojss2a1065" },
+    { id: "DEMO/JSS2A/1066", name: "Linda Peter Amadi", year: 2, cls: "JSS 2A", pw: "demojss2a1066" },
+    { id: "DEMO/JSS2A/1067", name: "Kwesi Joy Adegoke", year: 2, cls: "JSS 2A", pw: "demojss2a1067" },
+    { id: "DEMO/JSS2A/1068", name: "Yemi Ifechukwu Onuoha", year: 2, cls: "JSS 2A", pw: "demojss2a1068" },
+    { id: "DEMO/JSS2A/1069", name: "Musa Eze Mohammed", year: 2, cls: "JSS 2A", pw: "demojss2a1069" },
+    { id: "DEMO/JSS2A/1070", name: "Gloria Ifechukwu Okafor", year: 2, cls: "JSS 2A", pw: "demojss2a1070" },
+    { id: "DEMO/JSS2A/1071", name: "Hope Nne Mohammed", year: 2, cls: "JSS 2A", pw: "demojss2a1071" },
+    { id: "DEMO/JSS2A/1072", name: "Faith Obi Boateng", year: 2, cls: "JSS 2A", pw: "demojss2a1072" },
+    { id: "DEMO/JSS2A/1073", name: "Hope Chukwuemeka Johnson", year: 2, cls: "JSS 2A", pw: "demojss2a1073" },
+    { id: "DEMO/JSS2B/1074", name: "Funmi Chibueze Bello", year: 2, cls: "JSS 2B", pw: "demojss2b1074" },
+    { id: "DEMO/JSS2B/1075", name: "Adjoa Wale Adekunle", year: 2, cls: "JSS 2B", pw: "demojss2b1075" },
+    { id: "DEMO/JSS2B/1076", name: "Yemi Tochukwu Pepple", year: 2, cls: "JSS 2B", pw: "demojss2b1076" },
+    { id: "DEMO/JSS2B/1077", name: "Ngozi Ade Babatunde", year: 2, cls: "JSS 2B", pw: "demojss2b1077" },
+    { id: "DEMO/JSS2B/1078", name: "Charles Hope Darko", year: 2, cls: "JSS 2B", pw: "demojss2b1078" },
+    { id: "DEMO/JSS2B/1079", name: "Paul Faith Okeke", year: 2, cls: "JSS 2B", pw: "demojss2b1079" },
+    { id: "DEMO/JSS2B/1080", name: "Ayodeji Nne Babatunde", year: 2, cls: "JSS 2B", pw: "demojss2b1080" },
+    { id: "DEMO/JSS2B/1081", name: "Joy Grace Owusu", year: 2, cls: "JSS 2B", pw: "demojss2b1081" },
+    { id: "DEMO/JSS2B/1082", name: "David Oluwakemi Suleiman", year: 2, cls: "JSS 2B", pw: "demojss2b1082" },
+    { id: "DEMO/JSS2B/1083", name: "Ngozi Chinyere Eke", year: 2, cls: "JSS 2B", pw: "demojss2b1083" },
+    { id: "DEMO/JSS3/1084", name: "Esther Hope Garba", year: 2, cls: "JSS 3", pw: "demojss31084" },
+    { id: "DEMO/JSS3/1085", name: "Funmi Peace Williams", year: 2, cls: "JSS 3", pw: "demojss31085" },
+    { id: "DEMO/JSS3/1086", name: "Hope Joy Babatunde", year: 2, cls: "JSS 3", pw: "demojss31086" },
+    { id: "DEMO/JSS3/1087", name: "Peace Chinyere Nwosu", year: 2, cls: "JSS 3", pw: "demojss31087" },
+    { id: "DEMO/JSS3/1088", name: "Daniel Oluwakemi Musa", year: 2, cls: "JSS 3", pw: "demojss31088" },
+    { id: "DEMO/JSS3/1089", name: "Peter Chibueze Adeleke", year: 2, cls: "JSS 3", pw: "demojss31089" },
+    { id: "DEMO/JSS3/1090", name: "Kelechi Grace Obiora", year: 2, cls: "JSS 3", pw: "demojss31090" },
+    { id: "DEMO/JSS3/1091", name: "Amaka Paul Okafor", year: 2, cls: "JSS 3", pw: "demojss31091" },
+    { id: "DEMO/JSS3/1092", name: "Hauwa Adebimpe Wike", year: 2, cls: "JSS 3", pw: "demojss31092" },
+    { id: "DEMO/JSS3/1093", name: "Wale Hope Adesola", year: 2, cls: "JSS 3", pw: "demojss31093" },
+    { id: "DEMO/JSS3/1094", name: "Naomi Chidinma Taylor", year: 2, cls: "JSS 3", pw: "demojss31094" },
+    { id: "DEMO/JSS3/1095", name: "Kelechi Nne Agboola", year: 2, cls: "JSS 3", pw: "demojss31095" },
+    { id: "DEMO/JSS3/1096", name: "Joy Michael Obiora", year: 2, cls: "JSS 3", pw: "demojss31096" },
+    { id: "DEMO/JSS3/1097", name: "Peace Chigozie Adeleke", year: 2, cls: "JSS 3", pw: "demojss31097" },
+    { id: "DEMO/JSS3/1098", name: "Yaw Onyekachi Ibrahim", year: 2, cls: "JSS 3", pw: "demojss31098" },
+    { id: "DEMO/JSS3/1099", name: "Joy Chukwuemeka Adeyemi", year: 2, cls: "JSS 3", pw: "demojss31099" },
+    { id: "DEMO/SSS1/1100", name: "Obiora Chi Onuoha", year: 3, cls: "SSS 1", pw: "demosss11100" },
+    { id: "DEMO/SSS1/1101", name: "Thomas Oluwakemi Tamuno", year: 3, cls: "SSS 1", pw: "demosss11101" },
+    { id: "DEMO/SSS1/1102", name: "Caleb Obiageli Williams", year: 3, cls: "SSS 1", pw: "demosss11102" },
+    { id: "DEMO/SSS1/1103", name: "Mercy Ugochi Chukwu", year: 3, cls: "SSS 1", pw: "demosss11103" },
+    { id: "DEMO/SSS1/1104", name: "Excel Olu Briggs", year: 3, cls: "SSS 1", pw: "demosss11104" },
+    { id: "DEMO/SSS1/1105", name: "Charles Chigozie Afolake", year: 3, cls: "SSS 1", pw: "demosss11105" },
+    { id: "DEMO/SSS1/1106", name: "Ahmed Adebimpe Usman", year: 3, cls: "SSS 1", pw: "demosss11106" },
+    { id: "DEMO/SSS1/1107", name: "Linda Michael Johnson", year: 3, cls: "SSS 1", pw: "demosss11107" },
+    { id: "DEMO/SSS1/1108", name: "Seun Grace Fashola", year: 3, cls: "SSS 1", pw: "demosss11108" },
+    { id: "DEMO/SSS1/1109", name: "Linda Adewale Wike", year: 3, cls: "SSS 1", pw: "demosss11109" },
+    { id: "DEMO/SSS1/1110", name: "Ahmed Chi Nwosu", year: 3, cls: "SSS 1", pw: "demosss11110" },
+    { id: "DEMO/SSS1/1111", name: "Deborah Chioma Babatunde", year: 3, cls: "SSS 1", pw: "demosss11111" },
+    { id: "DEMO/SSS1/1112", name: "Hope Chinyere Bello", year: 3, cls: "SSS 1", pw: "demosss11112" },
+    { id: "DEMO/SSS1/1113", name: "Yaw Adebimpe Fashola", year: 3, cls: "SSS 1", pw: "demosss11113" },
+    { id: "DEMO/SSS1/1114", name: "Ibrahim Chi Williams", year: 3, cls: "SSS 1", pw: "demosss11114" },
+    { id: "DEMO/SSS1/1115", name: "Usman Oluwafunke Ibrahim", year: 3, cls: "SSS 1", pw: "demosss11115" },
+    { id: "DEMO/SSS1/1116", name: "Rachel Chinyere Anderson", year: 3, cls: "SSS 1", pw: "demosss11116" },
+    { id: "DEMO/SS2A/1117", name: "Progress Onyekachi Nwosu", year: 3, cls: "SS 2A", pw: "demoss2a1117" },
+    { id: "DEMO/SS2A/1118", name: "Linda Adaora Anderson", year: 3, cls: "SS 2A", pw: "demoss2a1118" },
+    { id: "DEMO/SS2A/1119", name: "Charles Ade Oyelaran", year: 3, cls: "SS 2A", pw: "demoss2a1119" },
+    { id: "DEMO/SS2A/1120", name: "Seun Bola Adesanya", year: 3, cls: "SS 2A", pw: "demoss2a1120" },
+    { id: "DEMO/SS2A/1121", name: "Adeola Adaora Oduya", year: 3, cls: "SS 2A", pw: "demoss2a1121" },
+    { id: "DEMO/SS2A/1122", name: "Tobi Oluwafunke Usman", year: 3, cls: "SS 2A", pw: "demoss2a1122" },
+    { id: "DEMO/SS2A/1123", name: "Adebayo James Usman", year: 3, cls: "SS 2A", pw: "demoss2a1123" },
+    { id: "DEMO/SS2A/1124", name: "Barbara Adebimpe Adeyinka", year: 3, cls: "SS 2A", pw: "demoss2a1124" },
+    { id: "DEMO/SS2B/1125", name: "Kwame Adebimpe Nwachukwu", year: 3, cls: "SS 2B", pw: "demoss2b1125" },
+    { id: "DEMO/SS2B/1126", name: "Daniel Hope Davis", year: 3, cls: "SS 2B", pw: "demoss2b1126" },
+    { id: "DEMO/SS2B/1127", name: "Grace Chukwu Boateng", year: 3, cls: "SS 2B", pw: "demoss2b1127" },
+    { id: "DEMO/SSS3A/1128", name: "Olawale Wale Jones", year: 3, cls: "SSS 3A", pw: "demosss3a1128" },
+    { id: "DEMO/SSS3A/1129", name: "Chidi Joy Cookey", year: 3, cls: "SSS 3A", pw: "demosss3a1129" },
+    { id: "DEMO/SSS3A/1130", name: "Goodness Chukwu Olawale", year: 3, cls: "SSS 3A", pw: "demosss3a1130" },
+    { id: "DEMO/SSS3A/1131", name: "Hope Femi Agboola", year: 3, cls: "SSS 3A", pw: "demosss3a1131" },
+    { id: "DEMO/SSS3A/1132", name: "Favour Peter Akinwale", year: 3, cls: "SSS 3A", pw: "demosss3a1132" },
+    { id: "DEMO/SSS3A/1133", name: "Sarah Wale Chukwu", year: 3, cls: "SSS 3A", pw: "demosss3a1133" },
+    { id: "DEMO/SSS3A/1134", name: "Dayo Peter Chukwu", year: 3, cls: "SSS 3A", pw: "demosss3a1134" },
+    { id: "DEMO/SSS3A/1135", name: "Halima Nnamdi Williams", year: 3, cls: "SSS 3A", pw: "demosss3a1135" },
+    { id: "DEMO/SSS3A/1136", name: "Linda Ade Darko", year: 3, cls: "SSS 3A", pw: "demosss3a1136" },
+    { id: "DEMO/SSS3B/1137", name: "Adetutu Adaora Pepple", year: 3, cls: "SSS 3B", pw: "demosss3b1137" },
+    { id: "DEMO/SSS3B/1138", name: "Excel Femi Johnson", year: 3, cls: "SSS 3B", pw: "demosss3b1138" },
+    { id: "DEMO/SSS3B/1139", name: "Chidi Amarachi Pepple", year: 3, cls: "SSS 3B", pw: "demosss3b1139" },
+    { id: "DEMO/SSS3B/1140", name: "Divine Amarachi Boateng", year: 3, cls: "SSS 3B", pw: "demosss3b1140" },
+    { id: "DEMO/SSS3B/1141", name: "Peter Oluwakemi Miller", year: 3, cls: "SSS 3B", pw: "demosss3b1141" }
+  ];
+  const allLessonIds = ["INT-1", "INT-2", "INT-3", "INT-4", "DEV-1", "DEV-2", "DEV-3", "DEV-4", "COD-1", "COD-2", "COD-3", "COD-4", "COD-5", "COD-6", "DASH-1", "DASH-2", "DASH-3", "DASH-4", "DASH-5", "CRE-1", "CRE-2", "CRE-3", "CRE-4", "SS-1", "SS-2", "SS-3", "SS-4", "SS-5"];
+  const actions = ["Logged in", "Viewed lesson", "Started quiz", "Completed lesson", "Took quiz", "Earned badge", "Left a note", "Reviewed content"];
+  const courses = ["Internet Safety", "Devices", "Coding", "Dashboards", "Creative Tools", "Spreadsheets & Data"];
+  seedStudents.forEach((s) => {
+    const logs = [];
+    const completions = {};
+    const quizScores = {};
+    const courseRanges = [
+      { ids: ["INT-1", "INT-2", "INT-3", "INT-4"], prob: 0.88 },
+      { ids: ["DEV-1", "DEV-2", "DEV-3", "DEV-4"], prob: 0.78 },
+      { ids: ["COD-1", "COD-2", "COD-3", "COD-4", "COD-5", "COD-6"], prob: 0.71 },
+      { ids: ["DASH-1", "DASH-2", "DASH-3", "DASH-4", "DASH-5"], prob: 0.64 },
+      { ids: ["CRE-1", "CRE-2", "CRE-3", "CRE-4"], prob: 0.58 },
+      { ids: ["SS-1", "SS-2", "SS-3", "SS-4", "SS-5"], prob: 0.42 }
+    ];
+    courseRanges.forEach(({ ids, prob }) => {
+      const r = Math.random();
+      if (r < prob) {
+        ids.forEach((lid) => {
+          completions[lid] = true;
+          quizScores[lid] = { correct: Math.floor(Math.random() * 2) + 3, total: 4, pct: Math.round((Math.floor(Math.random() * 2) + 3) / 4 * 100), pts: Math.floor(Math.random() * 50) + 80, ts: new Date((/* @__PURE__ */ new Date("2025-11-01")).getTime() + Math.random() * 107 * 864e5).toISOString() };
+        });
+      } else if (r < prob + 0.12) {
+        const partial = Math.ceil(ids.length * Math.random() * 0.6);
+        ids.slice(0, partial).forEach((lid) => {
+          completions[lid] = true;
+          quizScores[lid] = { correct: Math.floor(Math.random() * 2) + 3, total: 4, pct: Math.round((Math.floor(Math.random() * 2) + 3) / 4 * 100), pts: Math.floor(Math.random() * 50) + 80, ts: new Date((/* @__PURE__ */ new Date("2025-11-01")).getTime() + Math.random() * 107 * 864e5).toISOString() };
+        });
+      }
+    });
+    const numLogs = Math.floor(Math.random() * 20) + 5;
+    for (let i = 0; i < numLogs; i++) {
+      const daysAgo = Math.random() * 107;
+      logs.push({
+        ts: new Date((/* @__PURE__ */ new Date("2025-11-01")).getTime() + Math.random() * 107 * 864e5).toISOString(),
+        action: actions[Math.floor(Math.random() * actions.length)],
+        course: courses[Math.floor(Math.random() * courses.length)],
+        detail: "",
+        page: "courses",
+        duration: Math.floor(Math.random() * 30) + 2
+      });
+    }
+    logs.sort((a, b) => b.ts.localeCompare(a.ts));
+    window.__TLT__.students[s.id] = __spreadProps(__spreadValues({}, s), { loginAt: null, completions, quizScores, activityLog: logs, badges: [], notes: "", loginCount: Math.floor(Math.random() * 8) + 1, totalTimeMin: Math.floor(Math.random() * 200) + 20, year: s.year || 0 });
+    window.__TLT__.metrics.totalLogins += window.__TLT__.students[s.id].loginCount;
+    const _doneCount = Object.keys(completions).length;
+    window.__TLT__.metrics.totalLessons += _doneCount;
+    window.__TLT__.metrics.totalQuizzes += _doneCount;
+    window.__TLT__.metrics.totalTimeMin += window.__TLT__.students[s.id].totalTimeMin;
+    logs.forEach((l) => window.__TLT__.globalLog.push(__spreadProps(__spreadValues({}, l), { studentId: s.id, name: s.name })));
+  });
+  window.__TLT__.globalLog.sort((a, b) => b.ts.localeCompare(a.ts));
+}
+const DB = window.__TLT__;
+const addLog = (studentId, action, course = "", detail = "", page = "", duration = 0) => {
+  const s = DB.students[studentId];
+  const entry = { ts: (/* @__PURE__ */ new Date()).toISOString(), studentId, name: (s == null ? void 0 : s.name) || studentId, action, course, detail, page, duration };
+  DB.globalLog.unshift(entry);
+  if (DB.globalLog.length > 2e3) DB.globalLog.pop();
+  if (s) {
+    s.activityLog.unshift({ ts: entry.ts, action, course, detail, page, duration });
+    if (s.activityLog.length > 200) s.activityLog.pop();
+  }
+};
+const C = {
+  bg: "#F0F4FF",
+  surface: "#FFFFFF",
+  raised: "#F7F9FF",
+  border: "#DDE3F5",
+  borderDark: "#B8C4E0",
+  navy: "#1E2D6B",
+  blue: "#3B82F6",
+  blueDim: "#EFF6FF",
+  purple: "#7C3AED",
+  purpleDim: "#F5F3FF",
+  green: "#10B981",
+  greenDim: "#ECFDF5",
+  orange: "#F59E0B",
+  orangeDim: "#FFFBEB",
+  red: "#EF4444",
+  redDim: "#FEF2F2",
+  pink: "#EC4899",
+  pinkDim: "#FDF2F8",
+  cyan: "#06B6D4",
+  cyanDim: "#ECFEFF",
+  teal: "#14B8A6",
+  tealDim: "#F0FDFA",
+  text: "#1E2D6B",
+  textMuted: "#6B7A99",
+  textDim: "#A0AABF"
+};
+const COURSE_THEMES = {
+  internet: { color: "#3B82F6", dim: "#EFF6FF", dark: "#1D4ED8", emoji: "\u{1F6E1}\uFE0F", label: "Internet Safety", bg: "linear-gradient(135deg,#1D4ED8,#3B82F6)" },
+  devices: { color: "#10B981", dim: "#ECFDF5", dark: "#059669", emoji: "\u{1F4BB}", label: "Using Devices", bg: "linear-gradient(135deg,#059669,#10B981)" },
+  coding: { color: "#7C3AED", dim: "#F5F3FF", dark: "#6D28D9", emoji: "\u2699\uFE0F", label: "Basic Coding", bg: "linear-gradient(135deg,#6D28D9,#7C3AED)" },
+  dashboards: { color: "#06B6D4", dim: "#ECFEFF", dark: "#0891B2", emoji: "\u{1F4CA}", label: "Building Dashboards", bg: "linear-gradient(135deg,#0891B2,#06B6D4)" },
+  creative: { color: "#F59E0B", dim: "#FFFBEB", dark: "#D97706", emoji: "\u{1F3A8}", label: "Creative Tools", bg: "linear-gradient(135deg,#D97706,#F59E0B)" },
+  spreadsheets: { color: "#EC4899", dim: "#FDF2F8", dark: "#DB2777", emoji: "\u{1F4CB}", label: "Spreadsheets & Data", bg: "linear-gradient(135deg,#DB2777,#EC4899)" }
+};
+const COURSES = {
+  internet: { id: "internet", lessons: [
+    {
+      id: "INT-1",
+      title: "What is the Internet?",
+      dur: "60 min",
+      pts: 100,
+      content: `The internet is a massive worldwide network connecting billions of computers.
+
+**How it works:**
+Data travels through undersea cables and Wi-Fi signals connecting every device on the planet.
+
+**Key vocabulary:**
+\u2022 Browser \u2014 Chrome, Safari, Firefox \u2014 your window to the web
+\u2022 Website \u2014 a collection of pages on the internet
+\u2022 Online \u2014 connected | Offline \u2014 not connected
+\u2022 Server \u2014 a powerful computer that stores websites
+
+**Safe vs Unsafe Activities:**
+\u2713 Safe: homework, educational videos, calling family
+\u2717 Unsafe: sharing your address, talking to strangers, clicking unknown links
+
+**The internet was invented in the late 1960s** and now connects over 5 billion people!`,
+      quiz: [["What is the internet?", "A huge worldwide network connecting millions of computers so they can share information instantly."], ["What is a browser?", "A programme like Chrome or Safari that lets you visit and view websites on the internet."], ["Name one safe online activity.", "Doing homework online, watching educational videos, or video calling family with an adult nearby."], ["How does data travel on the internet?", "Through undersea cables and through the air using Wi-Fi and mobile signals."]]
+    },
+    {
+      id: "INT-2",
+      title: "Personal Information & Privacy",
+      dur: "60 min",
+      pts: 100,
+      content: `Personal information is anything that could help someone identify or find you.
+
+**Examples \u2014 KEEP PRIVATE:**
+\u2022 Full name + school combined
+\u2022 Home address
+\u2022 Phone number
+\u2022 Photographs of yourself
+\u2022 Date of birth
+\u2022 Passwords
+
+**The Privacy Shield:** Think of your information like a castle \u2014 keep the sensitive details inside, only share safe info like your first name outside.
+
+**The Golden Rule:** Always ask a trusted adult before sharing ANYTHING personal online.
+
+**Trusted Adults:** Parent, carer, teacher \u2014 someone who can help keep you safe.`,
+      quiz: [["What is personal information?", "Any detail that could help someone identify or find you \u2014 name, address, school, phone number, or photos."], ["Why keep personal information private?", "Strangers could use it to find you or put you in danger."], ["Who is a trusted adult?", "An adult you feel safe with \u2014 parent, carer, or teacher \u2014 who you can go to for help."], ["What should you do before sharing personal info online?", "Always ask a trusted adult for permission first."]]
+    },
+    {
+      id: "INT-3",
+      title: "Passwords & Account Security",
+      dur: "60 min",
+      pts: 100,
+      content: `A password is like a key to your account \u2014 only you should have it!
+
+**Weak passwords:** password, 123456, your name, your pet's name
+
+**Strong password rules:**
+\u2022 At least 8 characters
+\u2022 Mix of UPPER and lower case
+\u2022 Include numbers (0-9)
+\u2022 Include symbols (!@#$%)
+\u2022 No personal information
+
+**The Passphrase Trick:**
+Combine 3 random words + number + symbol:
+"BlueFrogDance42!" \u2014 long, memorable, nearly impossible to crack!
+
+**Account Safety:**
+\u2713 Different password for every account
+\u2713 Never share passwords with friends
+\u2713 Change it immediately if someone finds out`,
+      quiz: [["What makes a strong password?", "Long, with a mix of uppercase letters, lowercase letters, numbers, and symbols \u2014 no personal information."], ["What is a passphrase?", "Three or more random words combined with a number and symbol \u2014 e.g. BlueFrogDance42!"], ["Why use different passwords for different accounts?", "If one is discovered, only that account is at risk."], ["Who should know your password?", "Only you \u2014 and a parent or carer for safety. Never share with friends."]]
+    },
+    {
+      id: "INT-4",
+      title: "Cyberbullying & Reporting",
+      dur: "60 min",
+      pts: 100,
+      content: `Cyberbullying is using the internet to repeatedly hurt, embarrass, or threaten someone.
+
+**How it differs from normal bullying:**
+\u2022 Can happen 24/7 \u2014 no escape at home
+\u2022 Can spread to thousands of people instantly
+\u2022 The bully may feel anonymous
+
+**The 3 Steps:**
+
+\u{1F6D1} STOP \u2014 Do NOT reply. It makes things worse.
+\u{1F6AB} BLOCK \u2014 Use the block button on the platform.
+\u{1F4E2} TELL \u2014 Tell a trusted adult. Screenshot first as evidence.
+
+**Digital Kindness Pledge:**
+I will be kind, think before I post, report unkindness, and treat others online as I would in real life.
+
+**Remember:** There is a real person with real feelings behind every message.`,
+      quiz: [["What is cyberbullying?", "Using the internet to repeatedly hurt, threaten, or embarrass someone on purpose."], ["What are the 3 steps?", "Stop (don't reply), Block (use the block button), Tell (a trusted adult with a screenshot)."], ["Why not reply to a mean message?", "Replying encourages the bully to continue and makes things worse."], ["What is a screenshot useful for?", "Evidence of the mean messages to show a trusted adult when reporting."]]
+    }
+  ] },
+  devices: { id: "devices", lessons: [
+    {
+      id: "DEV-1",
+      title: "Caring for Your Devices",
+      dur: "60 min",
+      pts: 100,
+      content: `Digital devices are expensive and fragile \u2014 look after them!
+
+**Common damage causes:**
+\u2022 Drops \u2014 always use a protective case
+\u2022 Liquid \u2014 keep drinks well away
+\u2022 Heat \u2014 never leave in direct sunlight or a hot car
+\u2022 Poor charging \u2014 don't let the battery die completely every time
+
+**Hardware vs Software:**
+\u2022 Hardware = physical parts: screen, keyboard, battery, camera
+\u2022 Software = programmes and apps running inside \u2014 you can't touch these!
+
+**Safe cleaning:**
+\u2713 Dry microfibre cloth only
+\u2713 Gentle circular motions
+\u2717 Never use water, spray cleaner, or kitchen roll`,
+      quiz: [["Name two ways a device gets damaged.", "Drops, liquid damage, overheating, sunlight exposure, or poor charging habits."], ["What is hardware?", "The physical parts of a device you can touch \u2014 screen, keyboard, battery, camera."], ["How do you safely clean a screen?", "Use a dry microfibre cloth with gentle circular motions. Never use water or spray cleaner."], ["What to do if a device gets wet?", "Turn it off immediately and tell a trusted adult straight away."]]
+    },
+    {
+      id: "DEV-2",
+      title: "Screen Time & Digital Wellbeing",
+      dur: "60 min",
+      pts: 100,
+      content: `Screen time is any time spent looking at a screen \u2014 phone, tablet, TV, computer.
+
+**Effects of too much screen time:**
+\u2022 Eye strain (sore, tired eyes)
+\u2022 Difficulty sleeping (blue light problem)
+\u2022 Less time for exercise
+\u2022 Harder to concentrate in class
+
+**Blue Light:** Screens emit blue light that tricks your brain into thinking it is still daytime \u2014 making it hard to fall asleep.
+
+**The 20-20-20 Rule:**
+Every 20 minutes \u2192 look at something 20 feet away \u2192 for 20 seconds
+
+**Recommended:** About 2 hours recreational screen time per day for primary children
+
+**Balance ideas:** Reading, drawing, sport, cooking, spending time with family`,
+      quiz: [["What is screen time?", "Any time spent looking at a screen \u2014 tablet, phone, television, or computer."], ["Name two effects of too much screen time.", "Eye strain, difficulty sleeping, less exercise time, difficulty concentrating."], ["What is the 20-20-20 rule?", "Every 20 minutes, look at something 20 feet away for 20 seconds to reduce eye strain."], ["What is blue light?", "Light from screens that can disrupt sleep by making your brain think it is still daytime."]]
+    },
+    {
+      id: "DEV-3",
+      title: "Your Digital Footprint",
+      dur: "60 min",
+      pts: 100,
+      content: `A digital footprint is the trail of information left every time you use the internet.
+
+**What creates it:**
+\u2022 Social media posts and comments
+\u2022 Photos you share
+\u2022 Search history
+\u2022 Online games
+\u2022 Apps and websites you visit
+
+**The Truth About Deletion:**
+Even deleted content can still exist \u2014 someone may have saved it, or the website keeps a copy. Assume EVERYTHING you post online is permanent.
+
+**Footprint = Reputation:**
+Your digital footprint can be seen by teachers, future employers, and universities.
+
+**The 3 Questions \u2014 Before You Post:**
+1. Is it kind?
+2. Is it permanent? (always assume yes)
+3. Would I be happy if my teacher/parent saw it?`,
+      quiz: [["What is a digital footprint?", "The trail of information you leave behind every time you use the internet."], ["Can deleted content disappear completely?", "Not always \u2014 others may have saved it and websites often keep copies."], ["What 3 questions before posting?", "Is it kind? Is it permanent? Would I be happy if my teacher or parent saw it?"], ["How can your footprint affect your future?", "Future employers, universities, and others can find your online posts when they search for you."]]
+    },
+    {
+      id: "DEV-4",
+      title: "Digital Citizenship",
+      dur: "60 min",
+      pts: 100,
+      content: `A digital citizen is anyone who uses technology \u2014 that's you!
+
+**5 Qualities of a Good Digital Citizen:**
+1. Respectful \u2014 treat others as in real life
+2. Responsible \u2014 think before posting
+3. Safe \u2014 protect personal information
+4. Kind \u2014 be encouraging and supportive
+5. Honest \u2014 be genuine online
+
+**Why people behave differently online:**
+Some feel anonymous \u2014 no immediate consequences. But real people with real feelings are behind every message.
+
+**Empathy Online:**
+Before hitting send \u2014 ask: How would I feel receiving this message?
+
+**Your Digital Pledge:**
+\u2022 I will always be kind online
+\u2022 I will report unkindness
+\u2022 I will think before I post`,
+      quiz: [["What is a digital citizen?", "Anyone who uses technology \u2014 with a responsibility to use it safely, kindly, and respectfully."], ["Name 3 qualities of a good digital citizen.", "Respectful, responsible, safe, kind, and honest online."], ["What is empathy online?", "Understanding how someone else feels \u2014 real people with real feelings receive every message."], ["Why do people behave differently online?", "Some feel anonymous and think there are no consequences for their actions."]]
+    }
+  ] },
+  coding: { id: "coding", lessons: [
+    {
+      id: "COD-1",
+      title: "What is Coding?",
+      dur: "60 min",
+      pts: 100,
+      content: `Coding is writing precise step-by-step instructions in a language computers understand.
+
+**The Sandwich Test:**
+Imagine a robot: "Make a sandwich." It stands confused \u2014 too vague! Computers need EXACT instructions.
+
+**Algorithm** = a precise set of step-by-step instructions
+
+Example \u2014 making toast:
+1. Put bread in toaster
+2. Push lever down
+3. Wait for pop-up
+4. Remove carefully
+5. Spread butter
+
+**Flowcharts:** Use shapes and arrows to show algorithm steps visually.
+
+**Why coding matters:** Every app, game, and website you use was built with code!`,
+      quiz: [["What is coding?", "Writing step-by-step instructions in a language a computer can understand."], ["What is an algorithm?", "A precise set of step-by-step instructions for completing a task \u2014 like a recipe for a computer."], ["Why must instructions be precise?", "Computers follow instructions exactly \u2014 a vague instruction gives the wrong result."], ["What is a flowchart?", "A diagram showing algorithm steps using shapes and arrows."]]
+    },
+    {
+      id: "COD-2",
+      title: "Sequences & Loops in Scratch",
+      dur: "60 min",
+      pts: 120,
+      content: `**Scratch** (scratch.mit.edu) is a free visual coding tool \u2014 snap blocks together to code!
+
+**Sequence** = instructions running one after another, top to bottom
+
+"When flag clicked \u2192 move 10 \u2192 turn 15\xB0 \u2192 say Hello!"
+
+**The Loop Problem:**
+Want a sprite to hop 20 times? Writing 20 move blocks takes forever!
+
+**Loop** = repeats a set of instructions a chosen number of times
+
+"Repeat 20 \u2192 move 10 steps" \u2014 much better!
+
+**Types of loops:**
+\u2022 Repeat [n] \u2014 repeats exactly n times
+\u2022 Forever \u2014 runs until programme stops
+\u2022 Repeat Until \u2014 runs until a condition is true`,
+      quiz: [["What is a sequence?", "Instructions that run one after another in order, top to bottom."], ["What is a loop?", "A block that repeats a set of instructions a chosen number of times."], ["Why are loops useful?", "They avoid writing the same instruction many times \u2014 cleaner and shorter code."], ["What is Scratch?", "A free visual coding tool at scratch.mit.edu where you snap colourful blocks together."]]
+    },
+    {
+      id: "COD-3",
+      title: "Variables & Events",
+      dur: "60 min",
+      pts: 120,
+      content: `**Variables** = labelled boxes that store changing values
+
+Game variable examples:
+\u2022 score \u2014 starts at 0, goes up by 1 each point
+\u2022 lives \u2014 starts at 3, goes down when you make a mistake
+\u2022 speed \u2014 increases as the game gets harder
+
+**Creating a variable in Scratch:**
+1. Click Variables \u2192 Make a Variable
+2. Name it (e.g. "score")
+3. "Set score to 0" at start
+4. "Change score by 1" to add a point
+
+**Events** = triggers that start code running
+
+\u2022 When \u{1F6A9} clicked \u2014 green flag starts programme
+\u2022 When [space] pressed \u2014 keyboard input
+\u2022 When sprite clicked \u2014 mouse click
+
+**Every script must start with an event!**`,
+      quiz: [["What is a variable?", "A named container storing a value that can change \u2014 like a score counter in a game."], ["Give two examples of game variables.", "Score (tracks points), lives (tracks attempts remaining), speed (increases difficulty)."], ["What is an event in Scratch?", "A trigger that starts code running \u2014 the most common is clicking the green flag."], ["Why must every script have an event?", "Without a trigger, the code will never start running."]]
+    },
+    {
+      id: "COD-4",
+      title: "Debugging",
+      dur: "60 min",
+      pts: 120,
+      content: `**Bug** = an error causing a programme to behave incorrectly
+
+**Origin story:** In 1947, engineers found a real moth trapped inside a computer causing errors. They taped it in their logbook: "First actual case of bug being found."
+
+**Types of bugs:**
+\u2022 Logic error \u2014 runs but does wrong thing (score goes down instead of up)
+\u2022 Syntax error \u2014 code won't run at all
+\u2022 Order error \u2014 instructions in wrong sequence
+\u2022 Missing event \u2014 no trigger, so never starts
+
+**Debugging strategies:**
+1. Read code top to bottom carefully
+2. Test one section at a time
+3. Use "Say" blocks to check variable values
+4. Change ONE thing at a time, then test
+
+**Pro tip:** Even professional programmers debug constantly!`,
+      quiz: [["What is a bug?", "An error making a programme behave incorrectly or not at all."], ["Name two types of bugs.", "Logic error, syntax error, order error, missing event \u2014 any two of these."], ["What does debugging mean?", "Finding and fixing errors in a programme so it works correctly."], ["What strategy helps find bugs?", "Read code top to bottom, test one section at a time, change one thing at a time."]]
+    },
+    {
+      id: "COD-5",
+      title: "Conditions & Decisions",
+      dur: "60 min",
+      pts: 130,
+      content: `**Conditions** let programmes make decisions \u2014 doing different things based on true/false checks.
+
+**If/Then/Else:**
+"If [score > 10] then [say 'You win!'] else [say 'Keep going!']"
+
+**Boolean values:** TRUE or FALSE \u2014 no "maybe" in code!
+
+Examples:
+\u2022 Is score > 10? (true or false)
+\u2022 Is sprite touching edge? (true or false)
+\u2022 Is space key pressed? (true or false)
+
+**Combining conditions:**
+\u2022 AND \u2014 both must be true
+\u2022 OR \u2014 at least one must be true
+\u2022 NOT \u2014 reverses the condition
+
+**Real world:** Traffic light programme
+\u2022 IF red \u2192 cars stop | IF green \u2192 cars go`,
+      quiz: [["What is a condition?", "A check that is either true or false \u2014 code runs differently based on the result."], ["What does if/else do?", "Runs one code block if condition is true, different code if false."], ["What is a boolean?", "A value that is either TRUE or FALSE \u2014 no middle ground in code."], ["Give a real-world if/else example.", "Traffic light: if green, cars go; if red, cars stop."]]
+    },
+    {
+      id: "COD-6",
+      title: "Build Your Mini Project",
+      dur: "90 min",
+      pts: 200,
+      content: `Time to build your own Scratch project!
+
+**Project Options:**
+
+\u{1F3AE} Option A \u2014 Catching Game
+Sprite falls, player catches it. Score goes up, lives go down on miss.
+Uses: loops, variables (score + lives), events, conditions
+
+\u{1F4D6} Option B \u2014 Interactive Story
+3+ scenes, characters that speak, player choices that change the story
+Uses: sequences, events, conditions, broadcasts
+
+\u2753 Option C \u2014 Quiz Game
+5+ questions, correct/wrong feedback, score tracker, end screen
+Uses: variables, conditions, events, sequences
+
+**Project Checklist:**
+\u2713 Plan on paper first
+\u2713 Use at least one loop
+\u2713 Use at least one variable
+\u2713 Use at least one condition (if/else)
+\u2713 Test and debug as you build
+\u2713 Present with Two Stars and a Wish`,
+      quiz: [["What is a sprite?", "A character or object in Scratch that can move, speak, change costume, and react to events."], ["Why plan before building?", "Planning helps you think through the code needed before starting \u2014 saves time."], ["What is Two Stars and a Wish?", "Two things you liked about a project (stars) and one kind suggestion for improvement (wish)."], ["Name 3 concepts to use in your project.", "A loop, a variable, and a condition (if/else block)."]]
+    }
+  ] },
+  dashboards: { id: "dashboards", lessons: [
+    {
+      id: "DASH-1",
+      title: "What is a Dashboard?",
+      dur: "60 min",
+      pts: 100,
+      content: `A **dashboard** displays important information at a glance \u2014 like a car dashboard showing speed, fuel, and warnings together.
+
+**Real-world examples:**
+\u2022 School tracker \u2014 attendance, grades, reading levels
+\u2022 Weather app \u2014 temperature, wind, rain
+\u2022 Sports stats \u2014 goals, games played, league position
+\u2022 Hospital monitor \u2014 heart rate, blood pressure, oxygen
+
+**Why dashboards?**
+They turn raw numbers into easy-to-understand visuals, help spot patterns, and support decision making.
+
+**Dashboard anatomy:**
+\u2022 Title \u2014 what it's about
+\u2022 KPI Cards \u2014 Key Performance Indicators (most important numbers)
+\u2022 Charts \u2014 visual representations
+\u2022 Filters \u2014 controls to change what you see
+\u2022 Last updated \u2014 when data was refreshed
+
+**Tools:** Google Data Studio, Tableau, Power BI, Excel, JavaScript`,
+      quiz: [["What is a dashboard?", "A visual display showing important information at a glance \u2014 turning data into easy-to-understand visuals."], ["Name three real-world dashboards.", "School tracker, weather app, sports stats, hospital monitor, business sales tracker."], ["What does KPI stand for?", "Key Performance Indicator \u2014 the most important number to track."], ["Why are dashboards better than raw numbers?", "They turn data into visuals that are faster to understand and help people spot patterns."]]
+    },
+    {
+      id: "DASH-2",
+      title: "Types of Charts & When to Use Them",
+      dur: "60 min",
+      pts: 110,
+      content: `Choosing the RIGHT chart type is critical!
+
+**Bar Chart \u{1F4CA}** \u2014 comparing categories
+Example: pupils in each year group
+Rule: bars same width, only height varies
+
+**Line Chart \u{1F4C8}** \u2014 showing change over time
+Example: daily temperature
+Rule: connect points in time order
+
+**Pie Chart \u{1F967}** \u2014 parts of a whole
+Example: transport methods used
+Rule: fewer than 6 slices only
+
+**Scatter Plot \u2726** \u2014 relationship between two things
+Example: reading vs test scores
+
+**Table \u{1F4CB}** \u2014 exact numbers for precise comparison
+Example: league table
+
+**The Golden Rule:**
+NEVER choose a chart because it looks impressive.
+Choose the one that communicates most clearly and honestly.`,
+      quiz: [["Best chart for comparing categories?", "A bar chart \u2014 bars of equal width where only height varies."], ["Best chart for showing change over time?", "A line chart \u2014 connecting data points in time order."], ["When to use a pie chart?", "Showing parts of a whole with fewer than 6 categories."], ["Most important rule for choosing a chart?", "Choose the one that communicates most clearly \u2014 not the most impressive looking one."]]
+    },
+    {
+      id: "DASH-3",
+      title: "Collecting & Organising Data",
+      dur: "60 min",
+      pts: 110,
+      content: `Before building a dashboard \u2014 you need good, organised data!
+
+**What is data?**
+Information \u2014 numbers, text, dates, categories \u2014 recorded and stored for analysis.
+
+**Types:**
+\u2022 Quantitative \u2014 numbers (height, score, temperature)
+\u2022 Qualitative \u2014 descriptions (favourite colour, yes/no)
+
+**Collecting data:**
+\u2022 Surveys and questionnaires
+\u2022 Automatic counting (website visitors)
+\u2022 Observations
+\u2022 Sensors (temperature, movement)
+
+**A well-organised table has:**
+\u2022 Clear column headers (Name, Score, Date)
+\u2022 One row per record
+\u2022 Consistent formats (all dates the same way)
+\u2022 NO merged cells \u2014 they break charts!
+
+**Data cleaning** = fixing missing values, typos, and inconsistent formatting before analysis`,
+      quiz: [["What is data?", "Information \u2014 numbers, text, dates, categories \u2014 recorded and stored for analysis."], ["Quantitative vs qualitative data?", "Quantitative = numbers you can measure. Qualitative = descriptions and categories."], ["Name three ways to collect data.", "Surveys, automatic counting, observations, and sensors."], ["What is data cleaning?", "Fixing problems in data \u2014 missing values, typos, inconsistent formatting \u2014 before analysis."]]
+    },
+    {
+      id: "DASH-4",
+      title: "Building Your First Dashboard in Google Sheets",
+      dur: "75 min",
+      pts: 150,
+      content: `Let's build a REAL dashboard in Google Sheets (free, works in any browser)!
+
+**Step 1 \u2014 Enter your data**
+Create a table with at least 10 rows:
+Date | Name | Pages Read | Minutes | Book Title
+
+**Step 2 \u2014 Summary Formulas:**
+\u2022 =SUM(C2:C11) \u2192 total pages read
+\u2022 =AVERAGE(D2:D11) \u2192 average minutes
+\u2022 =MAX(C2:C11) \u2192 most pages in one day
+\u2022 =COUNTA(B2:B11) \u2192 number of readers
+
+**Step 3 \u2014 Insert Charts:**
+1. Select your data
+2. Insert \u2192 Chart
+3. Choose type, edit title and labels
+
+**Step 4 \u2014 Dashboard Sheet:**
+1. New sheet called "Dashboard"
+2. Copy charts here
+3. Add title, date, KPI numbers
+4. Use background colours to group sections
+
+**Design tips:** Most important info top-left \xB7 Consistent colours \xB7 Keep it simple`,
+      quiz: [["Formula to total a range?", "=SUM(range) \u2014 for example =SUM(C2:C11) adds all values in column C rows 2 to 11."], ["Formula for the average?", "=AVERAGE(range) \u2014 for example =AVERAGE(D2:D11)."], ["Where should the most important info go?", "Top left \u2014 people read from top-left to bottom-right."], ["Name three things every dashboard needs.", "A clear title, KPI numbers, charts or graphs, and the date last updated."]]
+    },
+    {
+      id: "DASH-5",
+      title: "Telling Stories with Data",
+      dur: "60 min",
+      pts: 120,
+      content: `The best dashboards don't just show data \u2014 they tell a story leading to action.
+
+**Data storytelling = data + visuals + narrative**
+
+**The 3 Parts:**
+1. Context \u2014 What is the situation? What question are we answering?
+2. Finding \u2014 What does the data show? What's surprising?
+3. Action \u2014 What should we do based on this?
+
+**Example:**
+Context: "We tracked Year 4 reading for 4 weeks."
+Finding: "Reading dropped 40% in Week 3 \u2014 before the school trip."
+Action: "Schedule extra reading around busy events."
+
+**Honest chart design:**
+\u2022 Start y-axis at zero (otherwise looks misleading)
+\u2022 Don't cherry-pick only favourable data
+\u2022 Always label axes with units
+\u2022 Cite your sources
+
+**Misleading charts to avoid:**
+\u2022 Truncated y-axis
+\u2022 Pie charts with too many slices
+\u2022 Missing labels`,
+      quiz: [["What is data storytelling?", "Combining data, visuals, and narrative to explain what data means and what to do about it."], ["The 3 parts of a data story?", "Context (situation), Finding (what data shows), Action (what to do)."], ["Why start bar charts at zero?", "Starting elsewhere makes small differences look huge \u2014 that is misleading."], ["Name one way a chart can be misleading.", "Truncated y-axis, pie chart with too many slices, missing labels or units."]]
+    }
+  ] },
+  creative: { id: "creative", lessons: [
+    {
+      id: "CRE-1",
+      title: "Digital Art",
+      dur: "60 min",
+      pts: 100,
+      content: `Digital art = artwork created on a computer or tablet with digital tools.
+
+**What is a pixel?**
+A pixel is one tiny dot making up a digital image. Zoom in very close and you'll see them \u2014 like tiny coloured squares.
+
+**Key tools:**
+\u2022 Brush \u2014 paints lines like a paintbrush
+\u2022 Pencil \u2014 precise pixel-by-pixel lines
+\u2022 Eraser \u2014 removes parts of drawing
+\u2022 Fill \u2014 floods a closed area with colour instantly
+\u2022 Shapes \u2014 perfect rectangles, circles, lines
+\u2022 Colour picker \u2014 picks colour from anywhere on canvas
+
+**Resolution:** How many pixels fit per inch. Higher = more detail = bigger file.
+
+**Biggest advantage of digital art:** The UNDO button!
+
+**Free tools:** MS Paint \xB7 Google Canvas \xB7 Pixlr.com \xB7 Sketchpad.app`,
+      quiz: [["What is digital art?", "Artwork created using a computer or tablet with digital tools instead of paint or pencil."], ["What is a pixel?", "One of the tiny dots making up a digital image \u2014 zoom in close to see them."], ["What does the fill tool do?", "Fills a closed area with a chosen colour instantly \u2014 like pouring paint."], ["One advantage of digital over traditional art?", "The undo button \u2014 you can instantly fix any mistake, impossible with paint."]]
+    },
+    {
+      id: "CRE-2",
+      title: "Video Creation",
+      dur: "60 min",
+      pts: 100,
+      content: `**What makes a great video?**
+\u2022 Clear structure: intro \u2192 main content \u2192 summary
+\u2022 Good lighting: ALWAYS face your light source
+\u2022 Clear audio: speak slowly, reduce background noise
+\u2022 Steady camera: rest elbows or use a stand
+
+**Storyboard** = plan for your video drawn as panels (like a comic strip)
+Each panel shows: what will be filmed + what will be said + props needed
+
+**Production stages:**
+1. Pre-production \u2014 planning, scripting, storyboarding
+2. Production \u2014 actual filming
+3. Post-production \u2014 editing, adding music and titles
+
+**Basic editing:**
+\u2022 Cut \u2014 remove unwanted parts
+\u2022 Trim \u2014 shorten start/end of a clip
+\u2022 Title card \u2014 text at start or end
+\u2022 Export \u2014 save in shareable format
+
+**Free tools:** Clipchamp \xB7 iMovie \xB7 CapCut \xB7 DaVinci Resolve`,
+      quiz: [["What is a storyboard?", "A plan for a video drawn as a series of panels showing what to film in each scene."], ["Name three things that make a good video.", "Clear structure, good lighting (face the light), and clear audio."], ["What are the 3 production stages?", "Pre-production (planning), production (filming), and post-production (editing)."], ["Why does lighting matter when filming?", "Light behind you makes your face dark on screen \u2014 face the light source to be clearly visible."]]
+    },
+    {
+      id: "CRE-3",
+      title: "Music Making with Chrome Music Lab",
+      dur: "60 min",
+      pts: 100,
+      content: `**Key music concepts:**
+\u2022 Melody \u2014 the sequence of notes forming the main tune
+\u2022 Rhythm \u2014 pattern of beats (what you tap along to)
+\u2022 Tempo \u2014 speed (fast = energetic, slow = calm)
+\u2022 Harmony \u2014 notes played together that sound good
+\u2022 Dynamics \u2014 loud vs quiet
+
+**Chrome Music Lab** (musiclab.chromeexperiments.com)
+Free \xB7 No login \xB7 Works in any browser
+
+**Song Maker tool:**
+\u2022 Grid where each square = one note
+\u2022 Choose instrument, adjust tempo
+\u2022 Add a rhythm/drum track
+\u2022 Share composition with a link!
+
+**How to compose:**
+1. Choose your instrument
+2. Start with a simple 4-note pattern
+3. Repeat and vary it
+4. Add a rhythm track
+5. Adjust tempo for the mood
+
+**Layering:** Adding a second instrument creates a richer, fuller sound!`,
+      quiz: [["What is tempo?", "The speed of music \u2014 fast sounds energetic, slow sounds calm or sad."], ["What is a melody?", "A sequence of notes played one after another forming the main tune."], ["What is Chrome Music Lab?", "A free browser tool at musiclab.chromeexperiments.com where you create music on a grid."], ["What does layering do?", "Adding a second instrument creates a richer, fuller sound than a single instrument alone."]]
+    },
+    {
+      id: "CRE-4",
+      title: "Creative Showcase",
+      dur: "90 min",
+      pts: 200,
+      content: `**Your final challenge \u2014 a multimedia project!**
+
+A multimedia project combines at least TWO types of digital content into one piece.
+
+**Project ideas:**
+\u2022 Video documentary + original background music
+\u2022 Digital art + voiceover narration
+\u2022 Scratch animation + composed soundtrack
+\u2022 Illustrated report + video presentation
+
+**What makes it great:**
+\u2713 Clear purpose \u2014 what is it about and who is it for?
+\u2713 High quality \u2014 take your time
+\u2713 Genuinely uses 2+ digital skills
+\u2713 Original content \u2014 your own ideas
+\u2713 Polished finish \u2014 simple and finished beats complex and incomplete!
+
+**Presentation tips:**
+\u2022 Introduce yourself and your project (10 seconds)
+\u2022 Explain which skills you used
+\u2022 Share what you're most proud of
+\u2022 Say one thing you'd do differently next time
+
+**Two Stars and a Wish:** 2 positive things + 1 kind suggestion`,
+      quiz: [["What is a multimedia project?", "A project combining at least two types of digital content \u2014 art, video, audio, text."], ["Why is finished better than complex and incomplete?", "A finished project shows your full idea and can be properly seen and appreciated."], ["What is Two Stars and a Wish?", "Two positive observations then one kind suggestion for improvement."], ["Name two skills that could be combined.", "Digital art + voiceover, video + music, Scratch animation + soundtrack."]]
+    }
+  ] },
+  spreadsheets: { id: "spreadsheets", lessons: [
+    {
+      id: "SS-1",
+      title: "Introduction to Spreadsheets",
+      dur: "60 min",
+      pts: 100,
+      content: `A spreadsheet is a digital grid of rows and columns for organising, calculating, and analysing data.
+
+**Key terms:**
+\u2022 Cell \u2014 single box (column + row: A1, B3, C10)
+\u2022 Row \u2014 horizontal line (numbered 1, 2, 3...)
+\u2022 Column \u2014 vertical line (labelled A, B, C...)
+\u2022 Range \u2014 group of cells (A1:C10)
+\u2022 Worksheet \u2014 one tab/page
+\u2022 Workbook \u2014 the whole file (many worksheets)
+
+**Uses:**
+\u2022 Track and record data (attendance, scores, budgets)
+\u2022 Automatic calculations
+\u2022 Create charts and visualisations
+\u2022 Sort and filter large datasets
+\u2022 Build dashboards
+
+**Google Sheets vs Excel:**
+Sheets \u2014 free, cloud-based, great for collaboration
+Excel \u2014 more powerful for very large datasets`,
+      quiz: [["What is a cell?", "A single box in the grid \u2014 identified by column letter + row number, e.g. A1 or B3."], ["What is a range?", "A group of cells \u2014 A1:C10 means all cells from A1 to C10."], ["Name three uses for spreadsheets.", "Tracking data, automatic calculations, creating charts, sorting and filtering, dashboards."], ["Sheets vs Excel?", "Google Sheets is free, cloud-based, great for collaboration. Excel is more powerful for large datasets."]]
+    },
+    {
+      id: "SS-2",
+      title: "Formulas & Functions",
+      dur: "60 min",
+      pts: 120,
+      content: `Formulas do the maths for you \u2014 automatically!
+
+**Always start with =**
+
+**Basic formulas:**
+\u2022 =A1+B1 \u2192 add
+\u2022 =A1-B1 \u2192 subtract
+\u2022 =A1*B1 \u2192 multiply
+\u2022 =A1/B1 \u2192 divide
+
+**Essential Functions:**
+\u2022 =SUM(A1:A10) \u2192 total of range
+\u2022 =AVERAGE(A1:A10) \u2192 mean
+\u2022 =MAX(A1:A10) \u2192 highest value
+\u2022 =MIN(A1:A10) \u2192 lowest value
+\u2022 =COUNT(A1:A10) \u2192 count cells with numbers
+\u2022 =COUNTA(A1:A10) \u2192 count cells with any content
+
+**The IF Function:**
+=IF(condition, value_if_true, value_if_false)
+Example: =IF(B2>=50,"Pass","Fail")
+\u2192 Checks if B2 \u2265 50, shows "Pass" if yes, "Fail" if no
+
+**Magic:** Change a value \u2192 all formulas update instantly!`,
+      quiz: [["What must every formula start with?", "An equals sign (=) \u2014 e.g. =SUM(A1:A10)."], ["What does =AVERAGE(A1:A10) do?", "Calculates the mean of all values in the range A1 to A10."], ['What does =IF(B2>=50,"Pass","Fail") do?', "Checks if B2 is 50 or more \u2014 shows 'Pass' if yes, 'Fail' if no."], ["What happens when you change a referenced cell?", "All formulas using that cell update automatically."]]
+    },
+    {
+      id: "SS-3",
+      title: "Formatting & Organising Data",
+      dur: "60 min",
+      pts: 100,
+      content: `Well-formatted data is easier to read, understand, and analyse.
+
+**Text formatting:** Bold \xB7 Italic \xB7 Font size \xB7 Text colour
+
+**Number formatting:**
+\u2022 Number \u2014 plain (1234)
+\u2022 Currency \u2014 \xA312.50
+\u2022 Percentage \u2014 75%
+\u2022 Date \u2014 27/02/2026
+
+**Cell formatting:**
+\u2022 Background colour \u2014 highlight important cells
+\u2022 Borders \u2014 separate sections clearly
+\u2022 Alignment \u2014 numbers RIGHT, text LEFT
+\u2022 Merge cells \u2014 ONLY for headers, NEVER for data
+
+**Sorting:**
+\u2022 A\u2192Z (alphabetical or lowest to highest)
+\u2022 Z\u2192A (reverse)
+\u2022 Multi-level: sort by Year Group, then by name
+
+**Filtering:** Shows only rows matching your criteria
+Data \u2192 Create Filter \u2192 choose what to show
+
+**Freeze rows:** Keep header visible as you scroll through lots of data`,
+      quiz: [["How should numbers be aligned?", "Right-aligned \u2014 makes them easier to compare and read down a column."], ["What does sorting do?", "Rearranges rows into a chosen order \u2014 alphabetical, by number, or by date."], ["What does filtering do?", "Shows only rows matching chosen criteria, hiding the rest temporarily."], ["When to merge cells?", "Only for header titles \u2014 never for data cells, as it breaks sorting and formulas."]]
+    },
+    {
+      id: "SS-4",
+      title: "Charts from Spreadsheet Data",
+      dur: "60 min",
+      pts: 110,
+      content: `Turn data into charts with just a few clicks!
+
+**Creating a chart (Google Sheets):**
+1. Select your data (include headers)
+2. Insert \u2192 Chart
+3. Choose chart type
+4. Edit: title, axis labels, legend, colours
+5. Move and resize on your sheet
+
+**Charts are LIVE** \u2014 change data \u2192 chart updates automatically!
+
+**Chart types:**
+\u2022 Column/Bar \u2014 comparisons
+\u2022 Line \u2014 trends over time
+\u2022 Pie/Doughnut \u2014 parts of whole
+\u2022 Scatter \u2014 relationships between two things
+
+**Making charts clear:**
+\u2713 Always add a descriptive title
+\u2713 Label both axes with units
+\u2713 Good colour contrast
+\u2713 Remove unnecessary gridlines
+
+**Common mistakes:**
+\u2717 Selecting data with blank rows/columns
+\u2717 Not including headers
+\u2717 Using 3D charts \u2014 they distort data
+\u2717 Too many colours (max 5-6)`,
+      quiz: [["What happens to a chart when data changes?", "It updates automatically \u2014 charts are live-linked to their data."], ["What must you include when selecting chart data?", "Column headers \u2014 so the chart knows what each column represents."], ["Name two things making a chart clear.", "Descriptive title, labelled axes with units, good contrast, removed unnecessary gridlines."], ["Why avoid 3D charts?", "3D effects distort data visually, making it harder to read values accurately."]]
+    },
+    {
+      id: "SS-5",
+      title: "Real-World Spreadsheet Project",
+      dur: "75 min",
+      pts: 180,
+      content: `Build a real spreadsheet solution!
+
+**Option A \u2014 Class Reading Tracker:**
+Track: pupil name, year, book, pages this week, total pages, minutes
+Formulas: SUM, AVERAGE, MAX
+Chart: bar chart of pages per pupil
+Dashboard: KPIs (total, top reader, class average)
+
+**Option B \u2014 Weather Data Analyser:**
+Record: daily high/low temp, rainfall, sunshine (2 weeks)
+Formulas: AVERAGE temp, MAX rain, MIN sunshine
+Chart: line chart of temperature over 14 days
+
+**Option C \u2014 Sports Day Results:**
+Record: event, pupil, year, time/distance, place
+Formulas: rankings, totals
+Chart: bar chart of points per year group
+
+**Must include:**
+\u2713 At least 15 rows of data
+\u2713 At least 3 different formulas
+\u2713 1 IF function
+\u2713 At least 2 charts
+\u2713 Proper formatting
+\u2713 Summary dashboard sheet`,
+      quiz: [["Why have at least 15 rows of data?", "More data gives more meaningful results \u2014 a chart with 3 points tells you very little."], ["What does an IF function add?", "Decision-making \u2014 checks a condition and returns different values based on true/false."], ["What should a dashboard sheet contain?", "Important KPI numbers, key charts, a clear title, and the date."], ["Formula to find top performer?", "=MAX(range) finds highest value \u2014 combine with INDEX/MATCH or XLOOKUP to find the name."]]
+    }
+  ] }
+};
+const allLessons = Object.values(COURSES).flatMap((c) => c.lessons);
+const getLessById = (id) => allLessons.find((l) => l.id === id);
+const fmt = {
+  time: (ts) => new Date(ts).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }),
+  date: (ts) => new Date(ts).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
+  dateShort: (ts) => new Date(ts).toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
+  datetime: (ts) => new Date(ts).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }),
+  ago: (ts) => {
+    const s = Math.floor((Date.now() - new Date(ts)) / 1e3);
+    if (s < 60) return "just now";
+    if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+    if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+    return `${Math.floor(s / 86400)}d ago`;
+  }
+};
+const totalPts = (s) => Object.values(s.quizScores || {}).reduce((a, q) => a + (q.pts || 0), 0);
+const doneCount = (s) => Object.keys(s.completions || {}).length;
+const Badge = ({ text, color = C.blue, bg }) => /* @__PURE__ */ React.createElement("span", { style: { background: bg || color + "22", color, border: `1px solid ${color}44`, borderRadius: 20, padding: "2px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.03em", display: "inline-block", whiteSpace: "nowrap" } }, text);
+const Pill = ({ text, color }) => /* @__PURE__ */ React.createElement("span", { style: { background: color, color: "#fff", borderRadius: 20, padding: "3px 10px", fontSize: 11, fontWeight: 700, display: "inline-block" } }, text);
+const ProgressBar = ({ pct, color = C.blue, height = 6, animate = true }) => /* @__PURE__ */ React.createElement("div", { style: { background: C.border, borderRadius: 99, height, overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", background: color, borderRadius: 99, transition: animate ? "width 0.8s cubic-bezier(0.4,0,0.2,1)" : "none" } }));
+const Card = ({ children, style = {}, onClick, hover = true }) => /* @__PURE__ */ React.createElement(
+  "div",
+  {
+    onClick,
+    style: __spreadValues({ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 14, padding: "1.25rem", transition: "all 0.2s", cursor: onClick ? "pointer" : "default" }, style),
+    onMouseEnter: hover && onClick ? (e) => {
+      e.currentTarget.style.transform = "translateY(-3px)";
+      e.currentTarget.style.boxShadow = "0 8px 24px rgba(30,45,107,0.12)";
+      e.currentTarget.style.borderColor = C.blue + "55";
+    } : void 0,
+    onMouseLeave: hover && onClick ? (e) => {
+      e.currentTarget.style.transform = "translateY(0)";
+      e.currentTarget.style.boxShadow = "none";
+      e.currentTarget.style.borderColor = C.border;
+    } : void 0
+  },
+  children
+);
+const StatCard = ({ label, value, sub, color = C.blue, icon, gradient }) => /* @__PURE__ */ React.createElement("div", { style: { background: gradient || C.surface, border: gradient ? "none" : `1px solid ${C.border}`, borderRadius: 14, padding: "1.1rem 1.25rem", boxShadow: gradient ? "0 4px 16px rgba(30,45,107,0.15)" : "none" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, fontWeight: 700, color: gradient ? "rgba(255,255,255,0.75)" : C.textMuted, textTransform: "uppercase", letterSpacing: "0.09em", marginBottom: 5 } }, label), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 26, fontWeight: 900, color: gradient ? "#fff" : color, lineHeight: 1, marginBottom: 3 } }, value), sub && /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: gradient ? "rgba(255,255,255,0.7)" : C.textMuted } }, sub)), icon && /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, opacity: 0.8 } }, icon)));
+const CertificateView = ({ studentId, isAdmin = false }) => {
+  const [selected, setSelected] = useState(null);
+  const [printing, setPrinting] = useState(false);
+  const certRef = useRef(null);
+  const sess = DB.students[studentId] || null;
+  const [adminTarget, setAdminTarget] = useState(studentId);
+  const target = isAdmin ? DB.students[adminTarget] || sess : sess;
+  const completedCourses = isAdmin ? [] : Object.entries(COURSES).filter(([id, course]) => course.lessons.every((l) => {
+    var _a;
+    return (_a = target == null ? void 0 : target.completions) == null ? void 0 : _a[l.id];
+  })).map(([id]) => id);
+  const allStudents = Object.values(DB.students).filter((s) => s.year >= 0);
+  const getCompletedCoursesForStudent = (s) => Object.entries(COURSES).filter(([id, course]) => course.lessons.every((l) => {
+    var _a;
+    return (_a = s == null ? void 0 : s.completions) == null ? void 0 : _a[l.id];
+  })).map(([id]) => id);
+  const handlePrint = () => {
+    setPrinting(true);
+    setTimeout(() => {
+      window.print();
+      setPrinting(false);
+    }, 300);
+  };
+  const today = (/* @__PURE__ */ new Date()).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  if (isAdmin) {
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1.25rem", fontWeight: 900, fontSize: 20 } }, "\u{1F3C5} Certificate Management"), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "300px 1fr", gap: "1rem", alignItems: "start" } }, /* @__PURE__ */ React.createElement(Card, { style: { padding: "0.75rem" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, fontWeight: 800, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.5rem", padding: "0 0.25rem" } }, "Select Student"), /* @__PURE__ */ React.createElement("div", { style: { maxHeight: 500, overflowY: "auto", display: "flex", flexDirection: "column", gap: 3 } }, allStudents.map((s) => {
+      const certs = getCompletedCoursesForStudent(s);
+      const isActive = adminTarget === s.id;
+      return /* @__PURE__ */ React.createElement(
+        "div",
+        {
+          key: s.id,
+          onClick: () => {
+            setAdminTarget(s.id);
+            setSelected(null);
+          },
+          style: { padding: "0.6rem 0.75rem", borderRadius: 8, cursor: "pointer", background: isActive ? C.blueDim : "transparent", border: isActive ? `1.5px solid ${C.blue}` : "1.5px solid transparent", transition: "all 0.15s" }
+        },
+        /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 800, color: C.navy, fontSize: 13 } }, s.name),
+        /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textMuted, fontWeight: 600 } }, s.id, " \xB7 ", certs.length, " cert", certs.length !== 1 ? "s" : "")
+      );
+    }))), /* @__PURE__ */ React.createElement("div", null, (() => {
+      const t = DB.students[adminTarget];
+      if (!t) return /* @__PURE__ */ React.createElement("div", { style: { color: C.textMuted, textAlign: "center", padding: "2rem" } }, "Select a student");
+      const certs = getCompletedCoursesForStudent(t);
+      if (certs.length === 0) return /* @__PURE__ */ React.createElement(Card, { style: { textAlign: "center", padding: "2rem" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 40, marginBottom: "0.5rem" } }, "\u{1F4ED}"), /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 800, color: C.navy, fontSize: 15 } }, t.name, " has no completed courses yet"), /* @__PURE__ */ React.createElement("div", { style: { color: C.textMuted, fontSize: 13, marginTop: 4 } }, "Complete all lessons in a course to earn a certificate."));
+      return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "0.75rem", display: "flex", gap: 6, flexWrap: "wrap" } }, certs.map((id) => {
+        const theme = COURSE_THEMES[id];
+        return /* @__PURE__ */ React.createElement(
+          "button",
+          {
+            key: id,
+            onClick: () => setSelected(selected === id ? null : id),
+            style: { background: selected === id ? theme.color : theme.dim, color: selected === id ? "#fff" : theme.color, border: `2px solid ${theme.color}`, borderRadius: 10, padding: "0.45rem 1rem", fontWeight: 800, cursor: "pointer", fontSize: 13, fontFamily: "inherit", transition: "all 0.2s" }
+          },
+          theme.emoji,
+          " ",
+          theme.label
+        );
+      })), selected && /* @__PURE__ */ React.createElement(CertificateCard, { studentName: t.name, studentId: t.id, cls: t.cls || "", courseId: selected, date: today, onPrint: handlePrint }), !selected && /* @__PURE__ */ React.createElement(Card, { style: { textAlign: "center", padding: "1.5rem", color: C.textMuted, fontWeight: 700 } }, "\u{1F446} Click a course button above to preview its certificate"));
+    })())), /* @__PURE__ */ React.createElement("style", null, `
+          @media print {
+            body > *:not(#cert-print-area) { display: none !important; }
+            #cert-print-area { display: block !important; position: fixed; top:0; left:0; width:100%; }
+          }
+        `));
+  }
+  if (!target) return null;
+  if (completedCourses.length === 0) return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1rem", fontWeight: 900, fontSize: 20 } }, "\u{1F3C5} My Certificates"), /* @__PURE__ */ React.createElement(Card, { style: { textAlign: "center", padding: "3rem 2rem" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 52, marginBottom: "0.75rem" } }, "\u{1F3AF}"), /* @__PURE__ */ React.createElement("h3", { style: { color: C.navy, margin: "0 0 0.5rem", fontWeight: 900 } }, "No certificates yet!"), /* @__PURE__ */ React.createElement("p", { style: { color: C.textMuted, fontSize: 14, margin: "0 0 1rem" } }, "Complete ALL lessons in a course to earn your certificate."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" } }, Object.entries(COURSES).map(([id, course]) => {
+    const theme = COURSE_THEMES[id];
+    const done = course.lessons.filter((l) => {
+      var _a;
+      return (_a = target == null ? void 0 : target.completions) == null ? void 0 : _a[l.id];
+    }).length;
+    const pct = Math.round(done / course.lessons.length * 100);
+    return /* @__PURE__ */ React.createElement("div", { key: id, style: { background: theme.dim, border: `1.5px solid ${theme.color}33`, borderRadius: 10, padding: "0.5rem 0.85rem", textAlign: "center", minWidth: 100 } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, marginBottom: 2 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, fontWeight: 800, color: theme.color } }, done, "/", course.lessons.length), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: C.textMuted, fontWeight: 600 } }, theme.label.split(" ")[0]), /* @__PURE__ */ React.createElement(ProgressBar, { pct, color: theme.color, height: 4 }));
+  }))));
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1rem", fontWeight: 900, fontSize: 20 } }, "\u{1F3C5} My Certificates"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginBottom: "1rem", flexWrap: "wrap" } }, completedCourses.map((id) => {
+    const theme = COURSE_THEMES[id];
+    return /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: id,
+        onClick: () => setSelected(selected === id ? null : id),
+        style: { background: selected === id ? theme.color : theme.dim, color: selected === id ? "#fff" : theme.color, border: `2px solid ${theme.color}`, borderRadius: 10, padding: "0.5rem 1.1rem", fontWeight: 900, cursor: "pointer", fontSize: 13, fontFamily: "inherit", transition: "all 0.2s", boxShadow: selected === id ? `0 4px 14px ${theme.color}44` : "none" }
+      },
+      theme.emoji,
+      " ",
+      theme.label
+    );
+  })), !selected && /* @__PURE__ */ React.createElement(Card, { style: { textAlign: "center", padding: "2rem", color: C.textMuted } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, marginBottom: "0.5rem" } }, "\u{1F446}"), /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 800, fontSize: 15, color: C.navy } }, "Select a course above to view your certificate")), selected && /* @__PURE__ */ React.createElement(CertificateCard, { studentName: target.name, studentId: target.id, cls: target.cls || "", courseId: selected, date: today, onPrint: handlePrint }), /* @__PURE__ */ React.createElement("style", null, `@media print { body > *:not(#cert-root) { display:none!important; } }`));
+};
+const CertificateCard = ({ studentName, studentId, cls, courseId, date, onPrint }) => {
+  const theme = COURSE_THEMES[courseId];
+  const course = COURSES[courseId];
+  const certRef = useRef(null);
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "flex-end", marginBottom: "0.75rem", gap: 8 } }, /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: onPrint,
+      style: { background: `linear-gradient(135deg,${C.navy},${C.blue})`, color: "#fff", border: "none", borderRadius: 10, padding: "0.55rem 1.25rem", fontWeight: 800, cursor: "pointer", fontFamily: "inherit", fontSize: 13, display: "flex", alignItems: "center", gap: 6 }
+    },
+    "\u{1F5A8}\uFE0F Print Certificate"
+  )), /* @__PURE__ */ React.createElement("div", { ref: certRef, id: "cert-root", style: {
+    background: "#fff",
+    border: `8px solid ${theme.color}`,
+    borderRadius: 20,
+    padding: "0",
+    overflow: "hidden",
+    boxShadow: `0 12px 40px ${theme.color}33`,
+    fontFamily: "'Nunito',sans-serif",
+    maxWidth: 700,
+    margin: "0 auto",
+    position: "relative"
+  } }, /* @__PURE__ */ React.createElement("div", { style: { background: theme.bg, padding: "1.5rem 2rem 1rem", textAlign: "center", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", left: -30, top: -30, width: 150, height: 150, borderRadius: "50%", background: "rgba(255,255,255,0.08)" } }), /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", right: -20, bottom: -20, width: 100, height: 100, borderRadius: "50%", background: "rgba(255,255,255,0.06)" } }), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { width: 55, height: 55, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: 3, boxShadow: "0 4px 12px rgba(0,0,0,0.15)" } }, /* @__PURE__ */ React.createElement("img", { src: SCHOOL_LOGO, alt: "Logo", style: { width: "100%", height: "100%", objectFit: "contain", borderRadius: "50%" } })), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "left" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "'Fredoka One',cursive", fontSize: 18, color: "#fff", lineHeight: 1 } }, "Demo School"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: "rgba(255,255,255,0.8)", fontWeight: 700 } }, "Learning Tool")))), /* @__PURE__ */ React.createElement("div", { style: { padding: "2rem 2.5rem", textAlign: "center", background: "#fff" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, letterSpacing: 12, color: theme.color, marginBottom: "0.5rem" } }, "\u2726 \u2726 \u2726"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, fontWeight: 800, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "0.4rem" } }, "Certificate of Completion"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 32, fontWeight: 900, marginBottom: "0.25rem" } }, "\u{1F3C5}"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, color: C.textMuted, fontWeight: 700, marginBottom: "0.25rem" } }, "This is to certify that"), /* @__PURE__ */ React.createElement("div", { style: {
+    fontFamily: "'Fredoka One',cursive",
+    fontSize: 30,
+    color: C.navy,
+    margin: "0.3rem 0",
+    lineHeight: 1.1,
+    borderBottom: `2px solid ${theme.color}44`,
+    paddingBottom: "0.4rem",
+    marginBottom: "0.5rem"
+  } }, studentName), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700, marginBottom: "0.15rem" } }, "Student ID: ", /* @__PURE__ */ React.createElement("span", { style: { color: C.navy, fontWeight: 900 } }, studentId), cls ? ` \xB7 ${cls}` : ""), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, color: C.text, fontWeight: 700, margin: "0.75rem 0" } }, "has successfully completed all lessons in"), /* @__PURE__ */ React.createElement("div", { style: {
+    background: theme.dim,
+    border: `2px solid ${theme.color}44`,
+    borderRadius: 14,
+    padding: "0.85rem 1.5rem",
+    margin: "0.5rem auto",
+    maxWidth: 320,
+    display: "inline-block"
+  } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 28, marginBottom: 4 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 900, color: theme.color, fontSize: 18 } }, theme.label), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700, marginTop: 2 } }, course.lessons.length, " lessons completed")), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, color: C.textMuted, fontWeight: 700, margin: "1rem 0 0.25rem" } }, "Awarded on"), /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 900, color: C.navy, fontSize: 15, marginBottom: "1.5rem" } }, date), /* @__PURE__ */ React.createElement("div", { style: { marginTop: "0.75rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" } }, /* @__PURE__ */ React.createElement("div", { style: { height: 1, width: 60, background: C.border } }), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: C.textDim, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" } }, "Demo School \xB7 Learning Tool \xB7 Official Certificate"), /* @__PURE__ */ React.createElement("div", { style: { height: 1, width: 60, background: C.border } })))));
+};
+const Login = ({ onLogin }) => {
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [tab, setTab] = useState("student");
+  const attempt = () => {
+    const raw = id.trim();
+    if (!raw) {
+      setErr("Please enter your 4-digit student number.");
+      return;
+    }
+    setLoading(true);
+    setTimeout(() => {
+      if (tab === "admin") {
+        const tid = raw.toUpperCase();
+        const admin = DB.admins[tid];
+        if (admin && pw === admin.pw) {
+          onLogin(tid, "admin");
+          return;
+        }
+        setErr("Invalid admin credentials.");
+        setLoading(false);
+        return;
+      }
+      const allStudents = Object.values(DB.students);
+      const getNum = (id2) => {
+        const m = id2.match(/\/([^/]+)$/);
+        return m ? m[1] : null;
+      };
+      const matches = allStudents.filter((st) => {
+        const seg = getNum(st.id);
+        if (!seg) return false;
+        return seg === raw || seg === raw.padStart(seg.length, "0") || parseInt(seg, 10) === parseInt(raw, 10);
+      });
+      if (matches.length > 1) {
+        setErr("Multiple students found. Please ask your teacher for your full student code.");
+        setLoading(false);
+        return;
+      }
+      const s = matches[0] || null;
+      if (s) {
+        s.loginAt = (/* @__PURE__ */ new Date()).toISOString();
+        s.loginCount = (s.loginCount || 0) + 1;
+        DB.metrics.totalLogins++;
+        addLog(s.id, "Logged in", "", "User signed into the platform", "login", 0);
+        onLogin(s.id, "student");
+      } else {
+        setErr("Number not found. Try just the digits after the last / in your ID (e.g. for DEMO/GRADE3/1001 type 1001).");
+        setLoading(false);
+      }
+    }, 500);
+  };
+  return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: `linear-gradient(160deg, #1E2D6B 0%, #3B82F6 60%, #06B6D4 100%)`, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem", fontFamily: "'Nunito',sans-serif", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("style", null, `@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap'); *{box-sizing:border-box;} input,button{font-family:inherit;}`), [["-100px", "200px", "400px", "rgba(255,255,255,0.05)"], ["80%", "-80px", "300px", "rgba(6,182,212,0.15)"], ["60%", "70%", "200px", "rgba(124,58,237,0.15)"]].map(([l, t, s, bg], i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { position: "absolute", left: l, top: t, width: s, height: s, borderRadius: "50%", background: bg, pointerEvents: "none" } })), /* @__PURE__ */ React.createElement("div", { style: { width: "100%", maxWidth: 420, position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: "2rem" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 90, height: 90, borderRadius: "50%", background: "white", margin: "0 auto 1rem", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 32px rgba(0,0,0,0.2)", padding: 4, overflow: "hidden" } }, /* @__PURE__ */ React.createElement("img", { src: SCHOOL_LOGO, alt: "School Logo", style: { width: "100%", height: "100%", objectFit: "contain", borderRadius: "50%" } })), /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "'Fredoka One',cursive", fontSize: 30, color: "#fff", margin: "0 0 0.25rem", letterSpacing: "0.01em", textShadow: "0 2px 8px rgba(0,0,0,0.2)" } }, "Learning Tool")), /* @__PURE__ */ React.createElement("div", { style: { background: "rgba(255,255,255,0.97)", borderRadius: 20, padding: "1.75rem", boxShadow: "0 20px 60px rgba(30,45,107,0.3)" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", background: C.raised, borderRadius: 10, padding: 3, marginBottom: "1.5rem" } }, [["student", "\u{1F392} Student"], ["admin", "\u{1F510} Admin"]].map(([t, lbl]) => /* @__PURE__ */ React.createElement("button", { key: t, onClick: () => {
+    setTab(t);
+    setErr("");
+  }, style: { flex: 1, padding: "0.5rem", borderRadius: 8, border: "none", background: tab === t ? "white" : "transparent", color: tab === t ? C.navy : C.textMuted, fontWeight: tab === t ? 800 : 600, fontSize: 13, cursor: "pointer", transition: "all 0.2s", boxShadow: tab === t ? "0 2px 8px rgba(30,45,107,0.12)" : "none" } }, lbl))), /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "1rem" } }, /* @__PURE__ */ React.createElement("label", { style: { display: "block", fontSize: 11, fontWeight: 800, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.09em", marginBottom: 6 } }, tab === "admin" ? "Admin ID" : "Last 4 Digits of Student ID"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      value: id,
+      onChange: (e) => {
+        setId(tab === "student" ? e.target.value.replace(/\D/g, "").slice(0, 4) : e.target.value);
+        setErr("");
+      },
+      onKeyDown: (e) => e.key === "Enter" && attempt(),
+      maxLength: tab === "admin" ? 10 : 4,
+      placeholder: tab === "admin" ? "ADMIN001" : "e.g. 0019",
+      style: { width: "100%", background: C.bg, border: `2px solid ${err ? C.red : C.border}`, borderRadius: 10, padding: "0.7rem 1rem", fontSize: 15, color: C.navy, fontWeight: 700, outline: "none", transition: "border-color 0.2s" },
+      onFocus: (e) => e.target.style.borderColor = C.blue,
+      onBlur: (e) => e.target.style.borderColor = err ? C.red : C.border
+    }
+  ), tab === "student" && /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, marginTop: 5, fontWeight: 600 } }, "Enter the last 4 digits of your Student ID (e.g. DEMO/GRADE3/", /* @__PURE__ */ React.createElement("b", null, "0019"), " \u2192 type ", /* @__PURE__ */ React.createElement("b", null, "0019"), ")")), tab === "admin" && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: "1rem" } }, /* @__PURE__ */ React.createElement("label", { style: { display: "block", fontSize: 11, fontWeight: 800, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.09em", marginBottom: 6 } }, "Password"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      type: "password",
+      value: pw,
+      onChange: (e) => {
+        setPw(e.target.value);
+        setErr("");
+      },
+      onKeyDown: (e) => e.key === "Enter" && attempt(),
+      placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+      style: { width: "100%", background: C.bg, border: `2px solid ${err ? C.red : C.border}`, borderRadius: 10, padding: "0.7rem 1rem", fontSize: 15, color: C.navy, fontWeight: 700, outline: "none", transition: "border-color 0.2s" },
+      onFocus: (e) => e.target.style.borderColor = C.blue,
+      onBlur: (e) => e.target.style.borderColor = err ? C.red : C.border
+    }
+  )), err && /* @__PURE__ */ React.createElement("div", { style: { color: C.red, fontSize: 12, fontWeight: 700, marginBottom: "0.75rem", padding: "0.5rem 0.75rem", background: C.redDim, borderRadius: 8 } }, err), /* @__PURE__ */ React.createElement("button", { onClick: attempt, disabled: loading, style: { width: "100%", background: `linear-gradient(135deg,${C.navy},${C.blue})`, color: "white", fontWeight: 900, fontSize: 15, border: "none", borderRadius: 10, padding: "0.85rem", cursor: loading ? "not-allowed" : "pointer", transition: "all 0.2s", boxShadow: "0 4px 16px rgba(30,45,107,0.3)" } }, loading ? "Checking\u2026" : "Sign In \u2192"), tab === "student" && /* @__PURE__ */ React.createElement("div", { style: { borderTop: `1px solid ${C.border}`, marginTop: "1.25rem", paddingTop: "1rem" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, fontWeight: 700, marginBottom: "0.5rem", textTransform: "uppercase", letterSpacing: "0.06em" } }, "Quick demo logins (click to fill):"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 5 } }, ["1001", "1002", "1003", "1004", "1005"].map((sid) => /* @__PURE__ */ React.createElement("button", { key: sid, onClick: () => {
+    setId(sid);
+    setErr("");
+  }, style: { background: C.raised, border: `1px solid ${C.border}`, color: C.textMuted, borderRadius: 6, padding: "3px 9px", fontSize: 11, cursor: "pointer", fontWeight: 700 } }, sid))), tab === "admin" && /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, marginTop: 6 } }, "Admin: ADMIN001 / admin123")))));
+};
+const QuizView = ({ lesson, courseId, studentId, onComplete }) => {
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [revealed, setRevealed] = useState(false);
+  const [done, setDone] = useState(false);
+  const theme = COURSE_THEMES[courseId];
+  const q = lesson.quiz[step];
+  if (done) {
+    const correct = Object.values(answers).filter(Boolean).length;
+    const pct = Math.round(correct / lesson.quiz.length * 100);
+    const pts = Math.round(lesson.pts * (pct / 100));
+    return /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", padding: "2rem 1rem" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 52, marginBottom: "0.5rem" } }, pct >= 80 ? "\u{1F31F}" : pct >= 50 ? "\u{1F44D}" : "\u{1F4DA}"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, fontWeight: 900, color: pct >= 80 ? C.green : pct >= 50 ? C.orange : C.red, marginBottom: 4 } }, correct, "/", lesson.quiz.length, " \u2014 ", pct, "%"), /* @__PURE__ */ React.createElement("div", { style: { color: C.textMuted, fontSize: 13, marginBottom: 8 } }, pct >= 80 ? "Brilliant! Lesson marked complete." : pct >= 50 ? "Good effort \u2014 check what you missed." : "Keep going \u2014 you can do it!"), /* @__PURE__ */ React.createElement("div", { style: { display: "inline-block", background: theme.dim, color: theme.color, borderRadius: 20, padding: "4px 14px", fontSize: 13, fontWeight: 800, marginBottom: "1.5rem" } }, "+", pts, " points earned \u2B50"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("button", { onClick: () => onComplete(correct, lesson.quiz.length, pts), style: { background: theme.color, color: "#fff", border: "none", borderRadius: 10, padding: "0.65rem 1.5rem", fontWeight: 800, cursor: "pointer", fontSize: 14 } }, "Continue \u2192"), pct < 100 && /* @__PURE__ */ React.createElement("button", { onClick: () => {
+      setStep(0);
+      setAnswers({});
+      setRevealed(false);
+      setDone(false);
+    }, style: { background: C.surface, border: `2px solid ${theme.color}`, color: theme.color, borderRadius: 10, padding: "0.65rem 1.25rem", fontWeight: 800, cursor: "pointer", fontSize: 14 } }, "Retry Quiz")));
+  }
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700 } }, "Question ", step + 1, " of ", lesson.quiz.length), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 4 } }, lesson.quiz.map((_, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { width: 28, height: 5, borderRadius: 3, background: i < step ? theme.color : i === step ? theme.color + "77" : C.border, transition: "background 0.3s" } })))), /* @__PURE__ */ React.createElement("div", { style: { background: theme.dim, border: `1.5px solid ${theme.color}33`, borderRadius: 12, padding: "1.25rem", marginBottom: "1rem" } }, /* @__PURE__ */ React.createElement("p", { style: { color: C.navy, fontWeight: 800, margin: 0, lineHeight: 1.5, fontSize: 15 } }, q[0])), !revealed ? /* @__PURE__ */ React.createElement("button", { onClick: () => setRevealed(true), style: { background: theme.color, color: "#fff", border: "none", borderRadius: 10, padding: "0.65rem 1.5rem", fontWeight: 800, cursor: "pointer", fontSize: 14, boxShadow: `0 4px 12px ${theme.color}55` } }, "Reveal Answer \u{1F441}\uFE0F") : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("div", { style: { background: C.greenDim, border: `1.5px solid ${C.green}44`, borderRadius: 12, padding: "1rem 1.25rem", marginBottom: "1rem" } }, /* @__PURE__ */ React.createElement("p", { style: { color: C.green, margin: 0, fontSize: 14, lineHeight: 1.55, fontWeight: 700 } }, "\u2705  ", q[1])), /* @__PURE__ */ React.createElement("p", { style: { color: C.textMuted, fontSize: 13, fontWeight: 700, marginBottom: "0.6rem" } }, "Did you get it right?"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => {
+    const a = __spreadProps(__spreadValues({}, answers), { [step]: true });
+    setAnswers(a);
+    setRevealed(false);
+    step + 1 < lesson.quiz.length ? setStep((s) => s + 1) : setDone(true);
+  }, style: { flex: 1, background: C.green, color: "#fff", border: "none", borderRadius: 10, padding: "0.65rem", fontWeight: 800, cursor: "pointer", fontSize: 14 } }, "\u2713 Got it!"), /* @__PURE__ */ React.createElement("button", { onClick: () => {
+    const a = __spreadProps(__spreadValues({}, answers), { [step]: false });
+    setAnswers(a);
+    setRevealed(false);
+    step + 1 < lesson.quiz.length ? setStep((s) => s + 1) : setDone(true);
+  }, style: { flex: 1, background: C.red, color: "#fff", border: "none", borderRadius: 10, padding: "0.65rem", fontWeight: 800, cursor: "pointer", fontSize: 14 } }, "\u2717 Missed it"))));
+};
+const LessonDetail = ({ lesson, courseId, studentId, onBack }) => {
+  var _a, _b;
+  const [tab, setTab] = useState("learn");
+  const [quizKey, setQuizKey] = useState(0);
+  const theme = COURSE_THEMES[courseId];
+  const sess = DB.students[studentId];
+  const isComplete = (_a = sess == null ? void 0 : sess.completions) == null ? void 0 : _a[lesson.id];
+  const quizData = (_b = sess == null ? void 0 : sess.quizScores) == null ? void 0 : _b[lesson.id];
+  useEffect(() => {
+    addLog(studentId, "Viewed lesson", theme.label, lesson.title, "lesson", 0);
+  }, []);
+  const handleQuizComplete = (correct, total, pts) => {
+    if (!sess.quizScores) sess.quizScores = {};
+    sess.quizScores[lesson.id] = { correct, total, pct: Math.round(correct / total * 100), pts, ts: (/* @__PURE__ */ new Date()).toISOString() };
+    if (!sess.completions) sess.completions = {};
+    sess.completions[lesson.id] = true;
+    sess.totalTimeMin = (sess.totalTimeMin || 0) + parseInt(lesson.dur);
+    DB.metrics.totalQuizzes++;
+    DB.metrics.totalLessons++;
+    addLog(studentId, "Completed lesson", theme.label, `${lesson.title} \u2014 ${Math.round(correct / total * 100)}%`, "lesson", parseInt(lesson.dur));
+    setTab("learn");
+    setQuizKey((k) => k + 1);
+  };
+  return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: C.bg, fontFamily: "'Nunito',sans-serif" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 760, margin: "0 auto", padding: "1.5rem" } }, /* @__PURE__ */ React.createElement("button", { onClick: onBack, style: { display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: C.textMuted, cursor: "pointer", fontSize: 13, fontWeight: 700, marginBottom: "1.25rem", fontFamily: "inherit" } }, "\u2190 Back to ", theme.label), /* @__PURE__ */ React.createElement("div", { style: { background: theme.bg, borderRadius: 18, padding: "1.75rem", marginBottom: "1.25rem", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", right: -20, top: -20, fontSize: 90, opacity: 0.1 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement(Pill, { text: theme.label, color: theme.color }), /* @__PURE__ */ React.createElement(Pill, { text: lesson.dur, color: "rgba(255,255,255,0.4)" }), /* @__PURE__ */ React.createElement(Pill, { text: `${lesson.pts} pts`, color: "rgba(255,255,255,0.4)" }), isComplete && /* @__PURE__ */ React.createElement(Pill, { text: "\u2713 Complete", color: C.green })), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", margin: "0 0 0.5rem", fontSize: 22, fontWeight: 900 } }, lesson.title), quizData && /* @__PURE__ */ React.createElement("div", { style: { fontSize: 13, color: "rgba(255,255,255,0.8)", fontWeight: 600 } }, "Quiz score: ", quizData.correct, "/", quizData.total, " (", quizData.pct, "%) \xB7 +", quizData.pts, " points")), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 6, marginBottom: "1.25rem" } }, [["learn", "\u{1F4D6} Learn"], ["quiz", "\u2753 Quiz"]].map(([id, lbl]) => /* @__PURE__ */ React.createElement("button", { key: id, onClick: () => setTab(id), style: { padding: "0.5rem 1.25rem", borderRadius: 10, border: tab === id ? `2px solid ${theme.color}` : `1px solid ${C.border}`, background: tab === id ? theme.dim : C.surface, color: tab === id ? theme.color : C.textMuted, fontWeight: 800, fontSize: 13, cursor: "pointer", fontFamily: "inherit", transition: "all 0.2s" } }, lbl, id === "quiz" && quizData && /* @__PURE__ */ React.createElement("span", { style: { marginLeft: 6, background: quizData.pct >= 80 ? C.green : C.red, color: "#fff", borderRadius: 10, padding: "1px 6px", fontSize: 10 } }, quizData.pct, "%")))), tab === "learn" && /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 14, color: C.text, lineHeight: 1.9 } }, lesson.content.split("\n").map((line, i) => {
+    if (line.startsWith("**") && line.endsWith("**")) return /* @__PURE__ */ React.createElement("p", { key: i, style: { color: C.navy, fontWeight: 900, margin: "1rem 0 0.4rem", fontSize: 15 } }, line.replace(/\*\*/g, ""));
+    if (line.startsWith("\u2022")) return /* @__PURE__ */ React.createElement("div", { key: i, style: { paddingLeft: "1.25rem", marginBottom: 4, position: "relative" } }, /* @__PURE__ */ React.createElement("span", { style: { position: "absolute", left: 0, color: theme.color, fontWeight: 900 } }, "\u2022"), line.slice(1));
+    if (/^\d+\./.test(line)) return /* @__PURE__ */ React.createElement("div", { key: i, style: { paddingLeft: "1.5rem", marginBottom: 4, position: "relative" } }, /* @__PURE__ */ React.createElement("span", { style: { position: "absolute", left: 0, color: theme.color, fontWeight: 900 } }, line.match(/^\d+/)[0], "."), line.replace(/^\d+\./, ""));
+    if (/^[✓✗]/.test(line)) return /* @__PURE__ */ React.createElement("div", { key: i, style: { paddingLeft: "1.25rem", marginBottom: 4, position: "relative" } }, /* @__PURE__ */ React.createElement("span", { style: { position: "absolute", left: 0 } }, line[0]), /* @__PURE__ */ React.createElement("span", { style: { color: line[0] === "\u2713" ? C.green : C.red, fontWeight: 700 } }, line.slice(1)));
+    if (line === "") return /* @__PURE__ */ React.createElement("div", { key: i, style: { height: 8 } });
+    return /* @__PURE__ */ React.createElement("span", { key: i, style: { display: "block", marginBottom: 3 } }, line);
+  })), /* @__PURE__ */ React.createElement("div", { style: { borderTop: `1px solid ${C.border}`, marginTop: "1.25rem", paddingTop: "1rem", display: "flex", justifyContent: "flex-end" } }, /* @__PURE__ */ React.createElement("button", { onClick: () => setTab("quiz"), style: { background: theme.color, color: "#fff", border: "none", borderRadius: 10, padding: "0.65rem 1.5rem", fontWeight: 800, cursor: "pointer", fontFamily: "inherit", fontSize: 14, boxShadow: `0 4px 12px ${theme.color}44` } }, "Take the Quiz \u2192"))), tab === "quiz" && /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(QuizView, { key: quizKey, lesson, courseId, studentId, onComplete: handleQuizComplete }))));
+};
+const CourseView = ({ courseId, studentId, onLesson, onBack }) => {
+  const course = COURSES[courseId];
+  const theme = COURSE_THEMES[courseId];
+  const sess = DB.students[studentId];
+  const done = course.lessons.filter((l) => {
+    var _a;
+    return (_a = sess == null ? void 0 : sess.completions) == null ? void 0 : _a[l.id];
+  }).length;
+  const pct = Math.round(done / course.lessons.length * 100);
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { background: theme.bg, borderRadius: 18, padding: "2rem", marginBottom: "1.5rem", position: "relative", overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { position: "absolute", right: -20, top: -20, fontSize: 110, opacity: 0.08 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 42, marginBottom: 8 } }, theme.emoji), /* @__PURE__ */ React.createElement("h2", { style: { color: "#fff", margin: "0 0 0.5rem", fontSize: 24, fontWeight: 900 } }, theme.label), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1.5rem", marginBottom: "0.75rem", flexWrap: "wrap" } }, [["\u{1F4DA} Lessons", course.lessons.length], ["\u2705 Done", `${done}/${course.lessons.length}`], ["\u{1F4C8} Progress", `${pct}%`]].map(([lbl, val]) => /* @__PURE__ */ React.createElement("div", { key: lbl }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: "rgba(255,255,255,0.7)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" } }, lbl), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: "#fff" } }, val)))), /* @__PURE__ */ React.createElement(ProgressBar, { pct, color: "rgba(255,255,255,0.9)", height: 8 })), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "0.6rem" } }, course.lessons.map((lesson, idx) => {
+    var _a, _b, _c;
+    const isComplete = !!((_a = sess == null ? void 0 : sess.completions) == null ? void 0 : _a[lesson.id]);
+    const quizData = (_b = sess == null ? void 0 : sess.quizScores) == null ? void 0 : _b[lesson.id];
+    const locked = idx > 0 && !((_c = sess == null ? void 0 : sess.completions) == null ? void 0 : _c[course.lessons[idx - 1].id]);
+    return /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        key: lesson.id,
+        onClick: !locked ? () => onLesson(lesson) : void 0,
+        style: { background: C.surface, border: `2px solid ${isComplete ? theme.color + "66" : locked ? C.border : C.border}`, borderRadius: 12, padding: "1rem 1.25rem", cursor: locked ? "not-allowed" : "pointer", opacity: locked ? 0.5 : 1, display: "flex", alignItems: "center", gap: "1rem", transition: "all 0.2s" },
+        onMouseEnter: !locked ? (e) => {
+          e.currentTarget.style.borderColor = theme.color;
+          e.currentTarget.style.transform = "translateX(4px)";
+        } : void 0,
+        onMouseLeave: !locked ? (e) => {
+          e.currentTarget.style.borderColor = isComplete ? theme.color + "66" : C.border;
+          e.currentTarget.style.transform = "translateX(0)";
+        } : void 0
+      },
+      /* @__PURE__ */ React.createElement("div", { style: { width: 40, height: 40, borderRadius: "50%", background: isComplete ? theme.color : locked ? "#E5E7EB" : theme.dim, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: isComplete ? 16 : 14, fontWeight: 900, color: isComplete ? "#fff" : locked ? C.textDim : theme.color, transition: "background 0.3s" } }, isComplete ? "\u2713" : locked ? "\u{1F512}" : idx + 1),
+      /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 800, color: C.navy, fontSize: 14, marginBottom: 2 } }, lesson.title), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 600 } }, lesson.dur, " \xB7 ", lesson.pts, " pts \xB7 ", lesson.quiz.length, " questions")),
+      /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 6, flexShrink: 0, alignItems: "center" } }, quizData && /* @__PURE__ */ React.createElement(Badge, { text: `${quizData.pct}%`, color: quizData.pct >= 80 ? C.green : quizData.pct >= 50 ? C.orange : C.red }), isComplete && /* @__PURE__ */ React.createElement(Badge, { text: "Done", color: C.green }), !locked && !isComplete && /* @__PURE__ */ React.createElement("span", { style: { color: C.blue, fontSize: 20, fontWeight: 900 } }, "\u203A"))
+    );
+  })));
+};
+const StudentActivityLog = ({ studentId }) => {
+  var _a;
+  const logs = ((_a = DB.students[studentId]) == null ? void 0 : _a.activityLog) || [];
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h3", { style: { color: C.navy, margin: "0 0 1rem", fontWeight: 900, fontSize: 18 } }, "My Activity Log"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 4 } }, logs.length === 0 && /* @__PURE__ */ React.createElement("div", { style: { color: C.textMuted, textAlign: "center", padding: "2rem", fontSize: 14, fontWeight: 700 } }, "No activity yet \u2014 start a lesson!"), logs.slice(0, 80).map((log, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 10, padding: "0.65rem 1rem", display: "flex", gap: "1rem", alignItems: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, fontWeight: 700, whiteSpace: "nowrap", flexShrink: 0, minWidth: 80 } }, fmt.dateShort(log.ts), /* @__PURE__ */ React.createElement("br", null), fmt.time(log.ts)), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, fontWeight: 800, color: C.navy } }, log.action), log.course && /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: C.textMuted, fontWeight: 600 } }, " \xB7 ", log.course), log.detail && log.detail !== log.action && /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, marginTop: 1 } }, log.detail)), log.duration > 0 && /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: C.textMuted, fontWeight: 600, whiteSpace: "nowrap" } }, log.duration, "min"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: C.textDim, whiteSpace: "nowrap", flexShrink: 0 } }, fmt.ago(log.ts))))));
+};
+const AdminPanel = ({ onLogout }) => {
+  const [tab, setTab] = useState("overview");
+  const [logFilter, setLogFilter] = useState("all");
+  const [logSearch, setLogSearch] = useState("");
+  const [studentFilter, setStudentFilter] = useState("");
+  const [annText, setAnnText] = useState("");
+  const [, refresh] = useState(0);
+  const re = () => refresh((n) => n + 1);
+  const students = Object.values(DB.students);
+  const totalStudents = students.length;
+  const activeToday = students.filter((s) => {
+    var _a;
+    return (_a = s.activityLog) == null ? void 0 : _a.some((l) => new Date(l.ts) > new Date(Date.now() - 864e5));
+  }).length;
+  const activeThisWeek = students.filter((s) => {
+    var _a;
+    return (_a = s.activityLog) == null ? void 0 : _a.some((l) => new Date(l.ts) > new Date(Date.now() - 7 * 864e5));
+  }).length;
+  const totalLessonsAll = Object.values(COURSES).flatMap((c) => c.lessons).length;
+  const avgDone = Math.round(students.reduce((s, st) => s + doneCount(st), 0) / totalStudents);
+  const totalPtsAll = students.reduce((s, st) => s + totalPts(st), 0);
+  const logs = DB.globalLog;
+  const filteredLogs = logs.filter((l) => {
+    var _a;
+    if (logFilter !== "all" && !((_a = l.course) == null ? void 0 : _a.toLowerCase().includes(logFilter.toLowerCase()))) return false;
+    if (logSearch && !`${l.name} ${l.studentId} ${l.action} ${l.course} ${l.detail}`.toLowerCase().includes(logSearch.toLowerCase())) return false;
+    return true;
+  });
+  const courseStats = Object.entries(COURSES).map(([id, course]) => {
+    const total = course.lessons.length;
+    const completions = students.reduce((s, st) => s + course.lessons.filter((l) => {
+      var _a;
+      return (_a = st.completions) == null ? void 0 : _a[l.id];
+    }).length, 0);
+    const pct = Math.round(completions / (totalStudents * total) * 100);
+    const scores = students.flatMap((st) => course.lessons.map((l) => {
+      var _a, _b;
+      return (_b = (_a = st.quizScores) == null ? void 0 : _a[l.id]) == null ? void 0 : _b.pct;
+    }).filter((v) => v != null));
+    const avgScore = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+    return { id, total, completions, pct, avgScore };
+  });
+  const addAnn = () => {
+    if (!annText.trim()) return;
+    DB.announcements.unshift({ id: Date.now(), text: annText.trim(), date: (/* @__PURE__ */ new Date()).toISOString().split("T")[0], author: "Admin" });
+    setAnnText("");
+    re();
+  };
+  const navTabs = [
+    { id: "overview", label: "\u{1F4CA} Overview" },
+    { id: "students", label: "\u{1F465} Students" },
+    { id: "courses", label: "\u{1F4DA} Courses" },
+    { id: "certificates", label: "\u{1F3C5} Certificates" },
+    { id: "announce", label: "\u{1F4E2} Announcements" },
+    { id: "activity", label: "\u{1F4CB} Activity Log" },
+    { id: "settings", label: "\u2699\uFE0F Settings" }
+  ];
+  return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: C.bg, fontFamily: "'Nunito',sans-serif", display: "flex", flexDirection: "column" } }, /* @__PURE__ */ React.createElement("style", null, `@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap'); *{box-sizing:border-box;}`), /* @__PURE__ */ React.createElement("div", { style: { background: `linear-gradient(135deg,#1E2D6B,#3B82F6)`, padding: "0.85rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 4px 16px rgba(30,45,107,0.3)" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "0.75rem" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 40, height: 40, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: 2 } }, /* @__PURE__ */ React.createElement("img", { src: SCHOOL_LOGO, alt: "Logo", style: { width: "100%", height: "100%", objectFit: "contain", borderRadius: "50%" } })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "'Fredoka One',cursive", fontSize: 17, color: "#fff", lineHeight: 1.1 } }, "Learning Tool"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 700 } }, "\u{1F510} Admin Control Panel"))), /* @__PURE__ */ React.createElement("button", { onClick: onLogout, style: { background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", borderRadius: 8, padding: "0.4rem 0.85rem", fontSize: 12, cursor: "pointer", fontWeight: 700, fontFamily: "inherit" } }, "\u21A9 Sign Out")), /* @__PURE__ */ React.createElement("div", { style: { background: C.surface, borderBottom: `1px solid ${C.border}`, padding: "0 1.5rem", display: "flex", gap: 2, overflowX: "auto" } }, navTabs.map((t) => /* @__PURE__ */ React.createElement("button", { key: t.id, onClick: () => setTab(t.id), style: { padding: "0.75rem 1rem", border: "none", borderBottom: tab === t.id ? `3px solid ${C.blue}` : "3px solid transparent", background: "transparent", color: tab === t.id ? C.blue : C.textMuted, fontWeight: tab === t.id ? 900 : 700, fontSize: 13, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "inherit", transition: "color 0.2s" } }, t.label))), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, padding: "1.5rem", maxWidth: 1200, width: "100%", margin: "0 auto" } }, tab === "overview" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", flexWrap: "wrap", gap: "0.5rem" } }, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: 0, fontWeight: 900, fontSize: 20 } }, "Platform Overview"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700 } }, "Last updated: ", fmt.datetime((/* @__PURE__ */ new Date()).toISOString()))), /* @__PURE__ */ React.createElement("div", { style: { background: `linear-gradient(135deg,${C.purple},${C.blue})`, borderRadius: 14, padding: "1rem 1.5rem", marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "1rem" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 28 } }, "\u{1F4E4}"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: "rgba(255,255,255,0.75)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em" } }, "Last Content Uploaded"), /* @__PURE__ */ React.createElement("div", { style: { color: "#fff", fontWeight: 900, fontSize: 15 } }, DB.lastUpload.lesson), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: "rgba(255,255,255,0.8)", fontWeight: 600 } }, DB.lastUpload.course, " \xB7 ", DB.lastUpload.date))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))", gap: "0.75rem", marginBottom: "1.5rem" } }, /* @__PURE__ */ React.createElement(StatCard, { label: "Total Students", value: totalStudents, icon: "\u{1F465}", gradient: `linear-gradient(135deg,#1D4ED8,#3B82F6)` }), /* @__PURE__ */ React.createElement(StatCard, { label: "Active Today", value: activeToday, icon: "\u{1F7E2}", color: C.green, sub: `${activeThisWeek} this week` }), /* @__PURE__ */ React.createElement(StatCard, { label: "Total Logins", value: DB.metrics.totalLogins, icon: "\u{1F511}", color: C.purple }), /* @__PURE__ */ React.createElement(StatCard, { label: "Lessons Completed", value: DB.metrics.totalLessons, icon: "\u2705", color: C.teal }), /* @__PURE__ */ React.createElement(StatCard, { label: "Quizzes Taken", value: DB.metrics.totalQuizzes, icon: "\u2753", color: C.orange }), /* @__PURE__ */ React.createElement(StatCard, { label: "Avg Lessons/Student", value: avgDone, icon: "\u{1F4C8}", color: C.pink, sub: `of ${totalLessonsAll} available` }), /* @__PURE__ */ React.createElement(StatCard, { label: "Total Points Earned", value: totalPtsAll.toLocaleString(), icon: "\u2B50", color: C.orange }), /* @__PURE__ */ React.createElement(StatCard, { label: "Total Courses", value: Object.keys(COURSES).length, icon: "\u{1F4DA}", color: C.blue })), /* @__PURE__ */ React.createElement(Card, { style: { marginBottom: "1.25rem" } }, /* @__PURE__ */ React.createElement("h4", { style: { color: C.navy, margin: "0 0 1rem", fontWeight: 900, fontSize: 15 } }, "Course Completion Rates (Class Average)"), courseStats.map((cs) => {
+    const theme = COURSE_THEMES[cs.id];
+    return /* @__PURE__ */ React.createElement("div", { key: cs.id, style: { marginBottom: "0.9rem" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", marginBottom: 4 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: C.navy, fontWeight: 800 } }, theme.emoji, " ", theme.label), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, alignItems: "center" } }, cs.avgScore != null && /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: cs.avgScore >= 80 ? C.green : cs.avgScore >= 50 ? C.orange : C.red, fontWeight: 800 } }, "Avg quiz: ", cs.avgScore, "%"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700 } }, cs.pct, "%"))), /* @__PURE__ */ React.createElement(ProgressBar, { pct: cs.pct, color: theme.color, height: 8 }));
+  })), /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" } }, /* @__PURE__ */ React.createElement("h4", { style: { color: C.navy, margin: 0, fontWeight: 900, fontSize: 15 } }, "Recent Platform Activity"), /* @__PURE__ */ React.createElement("button", { onClick: () => setTab("activity"), style: { background: C.blueDim, border: "none", color: C.blue, borderRadius: 8, padding: "4px 12px", fontSize: 12, cursor: "pointer", fontWeight: 800, fontFamily: "inherit" } }, "See All \u2192")), DB.globalLog.slice(0, 8).map((log, i) => {
+    var _a;
+    return /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", gap: "0.75rem", alignItems: "center", padding: "0.5rem 0", borderBottom: i < 7 ? `1px solid ${C.border}` : "none" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: C.textDim, fontWeight: 700, whiteSpace: "nowrap", minWidth: 65 } }, fmt.ago(log.ts)), /* @__PURE__ */ React.createElement("div", { style: { width: 28, height: 28, borderRadius: "50%", background: C.blueDim, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 900, color: C.blue, flexShrink: 0 } }, ((_a = log.name) == null ? void 0 : _a.charAt(0)) || "?"), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, fontWeight: 800, color: C.navy } }, log.name), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: C.textMuted, fontWeight: 600 } }, " \xB7 ", log.action), log.course && /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: C.textDim } }, " \xB7 ", log.course)), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, whiteSpace: "nowrap" } }, log.studentId));
+  }))), tab === "activity" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap", gap: "0.75rem" } }, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: 0, fontWeight: 900, fontSize: 20 } }, "Full Activity Log ", /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, fontWeight: 600, color: C.textMuted } }, "(", filteredLogs.length, " entries)")), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" } }, /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      value: logSearch,
+      onChange: (e) => setLogSearch(e.target.value),
+      placeholder: "Search name, action, course\u2026",
+      style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8, padding: "0.45rem 0.75rem", fontSize: 12, color: C.navy, fontWeight: 600, fontFamily: "inherit", outline: "none", width: 220 }
+    }
+  ), /* @__PURE__ */ React.createElement(
+    "select",
+    {
+      value: logFilter,
+      onChange: (e) => setLogFilter(e.target.value),
+      style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8, padding: "0.45rem 0.75rem", fontSize: 12, color: C.navy, fontWeight: 700, fontFamily: "inherit", cursor: "pointer" }
+    },
+    /* @__PURE__ */ React.createElement("option", { value: "all" }, "All Courses"),
+    Object.entries(COURSE_THEMES).map(([id, t]) => /* @__PURE__ */ React.createElement("option", { key: id, value: t.label }, t.emoji, " ", t.label))
+  ))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))", gap: "0.5rem", marginBottom: "1rem" } }, [
+    { label: "Total Events", value: DB.globalLog.length, color: C.blue },
+    { label: "Today", value: DB.globalLog.filter((l) => new Date(l.ts) > new Date(Date.now() - 864e5)).length, color: C.green },
+    { label: "This Week", value: DB.globalLog.filter((l) => new Date(l.ts) > new Date(Date.now() - 7 * 864e5)).length, color: C.purple },
+    { label: "Lesson Views", value: DB.globalLog.filter((l) => l.action === "Viewed lesson").length, color: C.orange },
+    { label: "Completions", value: DB.globalLog.filter((l) => l.action === "Completed lesson").length, color: C.teal },
+    { label: "Logins", value: DB.globalLog.filter((l) => l.action === "Logged in").length, color: C.pink }
+  ].map((s) => /* @__PURE__ */ React.createElement("div", { key: s.label, style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 10, padding: "0.7rem 0.85rem" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, fontWeight: 800, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: 3 } }, s.label), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, fontWeight: 900, color: s.color } }, s.value)))), /* @__PURE__ */ React.createElement("div", { style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { overflowX: "auto", maxHeight: "60vh", overflowY: "auto" } }, /* @__PURE__ */ React.createElement("table", { style: { width: "100%", borderCollapse: "collapse", fontSize: 12 } }, /* @__PURE__ */ React.createElement("thead", { style: { position: "sticky", top: 0 } }, /* @__PURE__ */ React.createElement("tr", { style: { background: C.navy } }, ["Timestamp", "Student ID", "Name", "Action", "Course", "Detail", "Duration", "Page"].map((h) => /* @__PURE__ */ React.createElement("th", { key: h, style: { textAlign: "left", padding: "0.6rem 0.85rem", color: "rgba(255,255,255,0.85)", fontWeight: 800, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", whiteSpace: "nowrap" } }, h)))), /* @__PURE__ */ React.createElement("tbody", null, filteredLogs.slice(0, 300).map((log, i) => /* @__PURE__ */ React.createElement("tr", { key: i, style: { borderTop: `1px solid ${C.border}`, background: i % 2 === 0 ? "transparent" : C.raised } }, /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.textMuted, fontWeight: 700, whiteSpace: "nowrap" } }, fmt.datetime(log.ts)), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.blue, fontWeight: 900 } }, log.studentId), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.navy, fontWeight: 800, whiteSpace: "nowrap" } }, log.name), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem" } }, /* @__PURE__ */ React.createElement(Badge, { text: log.action, color: log.action === "Logged in" ? C.blue : log.action === "Completed lesson" ? C.green : log.action === "Viewed lesson" ? C.purple : C.orange })), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.textMuted, fontWeight: 700, whiteSpace: "nowrap" } }, log.course || "\u2014"), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.textDim, maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" } }, log.detail || "\u2014"), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.textMuted, fontWeight: 700, whiteSpace: "nowrap" } }, log.duration ? `${log.duration}min` : "\u2014"), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.55rem 0.85rem", color: C.textDim } }, log.page || "\u2014")))))), filteredLogs.length === 0 && /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", padding: "2rem", color: C.textMuted, fontWeight: 700 } }, "No log entries match your filters."))), tab === "students" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", flexWrap: "wrap", gap: "0.75rem" } }, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: 0, fontWeight: 900, fontSize: 20 } }, "Student Management"), /* @__PURE__ */ React.createElement(
+    "input",
+    {
+      value: studentFilter,
+      onChange: (e) => setStudentFilter(e.target.value),
+      placeholder: "Search by name or ID\u2026",
+      style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 8, padding: "0.45rem 0.75rem", fontSize: 12, color: C.navy, fontWeight: 600, fontFamily: "inherit", outline: "none", width: 220 }
+    }
+  )), /* @__PURE__ */ React.createElement("div", { style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { overflowX: "auto" } }, /* @__PURE__ */ React.createElement("table", { style: { width: "100%", borderCollapse: "collapse", fontSize: 13 } }, /* @__PURE__ */ React.createElement("thead", null, /* @__PURE__ */ React.createElement("tr", { style: { background: C.navy } }, ["ID", "Name", "Year", "Lessons Done", "Points", "Quiz Avg", "Logins", "Last Active", "Status"].map((h) => /* @__PURE__ */ React.createElement("th", { key: h, style: { textAlign: "left", padding: "0.65rem 1rem", color: "rgba(255,255,255,0.85)", fontWeight: 800, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.07em", whiteSpace: "nowrap" } }, h)))), /* @__PURE__ */ React.createElement("tbody", null, students.filter((s) => !studentFilter || `${s.id} ${s.name}`.toLowerCase().includes(studentFilter.toLowerCase())).sort((a, b) => doneCount(b) - doneCount(a)).map((s, i) => {
+    var _a;
+    const lastLog = (_a = s.activityLog) == null ? void 0 : _a[0];
+    const isActive = lastLog && new Date(lastLog.ts) > new Date(Date.now() - 864e5);
+    const scores = Object.values(s.quizScores || {}).map((q) => q.pct);
+    const avgScore = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : null;
+    return /* @__PURE__ */ React.createElement("tr", { key: s.id, style: { borderTop: `1px solid ${C.border}`, background: i % 2 === 0 ? "transparent" : C.raised } }, /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem", color: C.blue, fontWeight: 900 } }, s.id), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem", color: C.navy, fontWeight: 800, whiteSpace: "nowrap" } }, s.name), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem", color: C.textMuted, fontWeight: 700 } }, s.year > 0 ? `Year ${s.year}` : "Teacher"), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 8 } }, /* @__PURE__ */ React.createElement("span", { style: { color: C.navy, fontWeight: 900 } }, doneCount(s), "/", Object.values(COURSES).flatMap((c) => c.lessons).length), /* @__PURE__ */ React.createElement("div", { style: { width: 50 } }, /* @__PURE__ */ React.createElement(ProgressBar, { pct: doneCount(s) / Object.values(COURSES).flatMap((c) => c.lessons).length * 100, color: C.blue, height: 4 })))), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem", color: C.orange, fontWeight: 900 } }, totalPts(s)), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem" } }, avgScore != null ? /* @__PURE__ */ React.createElement(Badge, { text: `${avgScore}%`, color: avgScore >= 80 ? C.green : avgScore >= 50 ? C.orange : C.red }) : /* @__PURE__ */ React.createElement("span", { style: { color: C.textDim } }, "\u2014")), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem", color: C.navy, fontWeight: 800 } }, s.loginCount || 0), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem", color: C.textMuted, fontWeight: 700, fontSize: 11 } }, lastLog ? fmt.ago(lastLog.ts) : "Never"), /* @__PURE__ */ React.createElement("td", { style: { padding: "0.65rem 1rem" } }, /* @__PURE__ */ React.createElement(Badge, { text: isActive ? "\u{1F7E2} Active" : "\u26AA Offline", color: isActive ? C.green : C.textDim })));
+  })))))), tab === "courses" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem" } }, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: 0, fontWeight: 900, fontSize: 20 } }, "Course Overview"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700 } }, "Last upload: ", /* @__PURE__ */ React.createElement("span", { style: { fontWeight: 900 } }, DB.lastUpload.date))), Object.entries(COURSES).map(([id, course]) => {
+    const theme = COURSE_THEMES[id];
+    const cs = courseStats.find((c) => c.id === id);
+    return /* @__PURE__ */ React.createElement(Card, { key: id, style: { marginBottom: "0.75rem", borderLeft: `4px solid ${theme.color}` } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 28 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 200 } }, /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 900, color: C.navy, fontSize: 15, marginBottom: 2 } }, theme.label), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700, marginBottom: "0.5rem" } }, course.lessons.length, " lessons \xB7 Last upload: ", DB.lastUpload.date), /* @__PURE__ */ React.createElement(ProgressBar, { pct: (cs == null ? void 0 : cs.pct) || 0, color: theme.color, height: 6 }), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textMuted, marginTop: 3, fontWeight: 700 } }, "Class avg: ", (cs == null ? void 0 : cs.pct) || 0, "% complete")), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1.5rem", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: theme.color } }, (cs == null ? void 0 : cs.completions) || 0), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: C.textMuted, fontWeight: 700 } }, "Completions")), (cs == null ? void 0 : cs.avgScore) != null && /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 20, fontWeight: 900, color: cs.avgScore >= 80 ? C.green : C.orange } }, cs.avgScore, "%"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: C.textMuted, fontWeight: 700 } }, "Avg Quiz")))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: "0.75rem", display: "flex", flexWrap: "wrap", gap: 4 } }, course.lessons.map((l) => /* @__PURE__ */ React.createElement("div", { key: l.id, title: l.title, style: { fontSize: 10, fontWeight: 800, padding: "2px 8px", borderRadius: 6, background: theme.dim, color: theme.dark, border: `1px solid ${theme.color}33` } }, l.id))));
+  })), tab === "announce" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1.25rem", fontWeight: 900, fontSize: 20 } }, "Announcements"), /* @__PURE__ */ React.createElement(Card, { style: { marginBottom: "1.25rem" } }, /* @__PURE__ */ React.createElement("h4", { style: { color: C.navy, margin: "0 0 0.75rem", fontWeight: 900 } }, "Post New Announcement"), /* @__PURE__ */ React.createElement(
+    "textarea",
+    {
+      value: annText,
+      onChange: (e) => setAnnText(e.target.value),
+      placeholder: "Type your announcement here\u2026",
+      style: { width: "100%", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "0.75rem", fontSize: 14, color: C.navy, fontFamily: "inherit", resize: "vertical", minHeight: 80, fontWeight: 600, outline: "none" }
+    }
+  ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "flex-end", marginTop: "0.75rem" } }, /* @__PURE__ */ React.createElement("button", { onClick: addAnn, style: { background: `linear-gradient(135deg,${C.navy},${C.blue})`, color: "#fff", border: "none", borderRadius: 10, padding: "0.6rem 1.5rem", fontWeight: 900, cursor: "pointer", fontFamily: "inherit", fontSize: 14 } }, "Post \u2192"))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "0.6rem" } }, DB.announcements.map((ann, i) => /* @__PURE__ */ React.createElement("div", { key: ann.id, style: { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: "1rem 1.25rem", display: "flex", gap: "1rem", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 20 } }, "\u{1F4E2}"), /* @__PURE__ */ React.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ React.createElement("p", { style: { margin: "0 0 0.25rem", color: C.navy, fontWeight: 700, fontSize: 14 } }, ann.text), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textMuted, fontWeight: 700 } }, ann.date, " \xB7 Posted by ", ann.author)), /* @__PURE__ */ React.createElement("button", { onClick: () => {
+    DB.announcements.splice(i, 1);
+    re();
+  }, style: { background: "none", border: "none", color: C.red, cursor: "pointer", fontSize: 16, padding: "0 4px" } }, "\u2715"))))), tab === "settings" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1.25rem", fontWeight: 900, fontSize: 20 } }, "Platform Settings"), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "1rem" } }, [
+    { icon: "\u{1F3EB}", title: "School Information", fields: [{ label: "School Name", val: "Demo School" }, { label: "Platform Name", val: "Learning Tool" }] },
+    { icon: "\u{1F4DA}", title: "Course Settings", fields: [{ label: "Total Courses", val: Object.keys(COURSES).length }, { label: "Total Lessons", val: Object.values(COURSES).flatMap((c) => c.lessons).length }, { label: "Sequential Unlock", val: "Enabled" }] },
+    { icon: "\u{1F465}", title: "User Management", fields: [{ label: "Active Students", val: 180 }, { label: "Admin Accounts", val: Object.keys(DB.admins).length }] },
+    { icon: "\u{1F4CA}", title: "Analytics", fields: [{ label: "Total Log Entries", val: DB.globalLog.length }, { label: "Log Retention", val: "500 entries" }, { label: "Data Export", val: "Coming Soon" }] }
+  ].map((sec) => /* @__PURE__ */ React.createElement(Card, { key: sec.title }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 20 } }, sec.icon), /* @__PURE__ */ React.createElement("span", { style: { fontWeight: 900, color: C.navy, fontSize: 15 } }, sec.title)), sec.fields.map((f) => /* @__PURE__ */ React.createElement("div", { key: f.label, style: { display: "flex", justifyContent: "space-between", padding: "0.5rem 0", borderBottom: `1px solid ${C.border}` } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: C.textMuted, fontWeight: 700 } }, f.label), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: C.navy, fontWeight: 900 } }, f.val))))))), tab === "certificates" && /* @__PURE__ */ React.createElement(CertificateView, { studentId: null, isAdmin: true })));
+};
+const Platform = ({ studentId, onLogout }) => {
+  var _a, _b, _c;
+  const [page, setPage] = useState("home");
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedLesson, setSelectedLesson] = useState(null);
+  const [, refresh] = useState(0);
+  const re = useCallback(() => refresh((n) => n + 1), []);
+  const sess = DB.students[studentId];
+  const isTeacher = studentId.startsWith("T");
+  if (selectedLesson && selectedCourse) {
+    return /* @__PURE__ */ React.createElement(LessonDetail, { lesson: selectedLesson, courseId: selectedCourse, studentId, onBack: () => {
+      setSelectedLesson(null);
+      re();
+    } });
+  }
+  const allLessonsList = Object.values(COURSES).flatMap((c) => c.lessons);
+  const allDone = allLessonsList.filter((l) => {
+    var _a2;
+    return (_a2 = sess == null ? void 0 : sess.completions) == null ? void 0 : _a2[l.id];
+  }).length;
+  const allTotal = allLessonsList.length;
+  const pts = totalPts(sess || {});
+  const navItems = [
+    { id: "home", label: "\u{1F3E0} Home", icon: "\u{1F3E0}" },
+    { id: "courses", label: "\u{1F4DA} Courses", icon: "\u{1F4DA}" },
+    { id: "progress", label: "\u{1F3C6} My Progress", icon: "\u{1F3C6}" },
+    { id: "certificates", label: "\u{1F3C5} Certificates", icon: "\u{1F3C5}" },
+    { id: "activity", label: "\u{1F4CB} Activity Log", icon: "\u{1F4CB}" }
+  ];
+  return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: C.bg, fontFamily: "'Nunito',sans-serif", display: "flex", flexDirection: "column" } }, /* @__PURE__ */ React.createElement("style", null, `@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap'); *{box-sizing:border-box;} ::-webkit-scrollbar{width:6px;background:${C.bg};} ::-webkit-scrollbar-thumb{background:${C.border};border-radius:3px;}`), /* @__PURE__ */ React.createElement("div", { style: { background: `linear-gradient(135deg,#1E2D6B,#3B82F6)`, padding: "0 1.25rem", display: "flex", justifyContent: "space-between", alignItems: "center", height: 56, boxShadow: "0 4px 16px rgba(30,45,107,0.25)", flexShrink: 0 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "0.6rem" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 36, height: 36, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: 2 } }, /* @__PURE__ */ React.createElement("img", { src: SCHOOL_LOGO, alt: "Logo", style: { width: "100%", height: "100%", objectFit: "contain", borderRadius: "50%" } })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "'Fredoka One',cursive", fontSize: 16, color: "#fff", lineHeight: 1 } }, "Learning Tool"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: "rgba(255,255,255,0.7)", fontWeight: 700 } }, "Welcome, ", (_a = sess == null ? void 0 : sess.name) == null ? void 0 : _a.split(" ")[0], "! \u2B50 ", pts, " pts"))), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 2 } }, navItems.map((n) => /* @__PURE__ */ React.createElement("button", { key: n.id, onClick: () => {
+    setPage(n.id);
+    setSelectedCourse(null);
+  }, style: { padding: "0.4rem 0.7rem", border: "none", borderRadius: 8, background: page === n.id ? "rgba(255,255,255,0.2)" : "transparent", color: "#fff", fontWeight: page === n.id ? 900 : 600, fontSize: 12, cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s" } }, n.icon, " ", n.label.split(" ")[1])), /* @__PURE__ */ React.createElement("button", { onClick: onLogout, style: { background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", borderRadius: 8, padding: "0.4rem 0.85rem", fontSize: 12, cursor: "pointer", fontWeight: 700, fontFamily: "inherit", marginLeft: 4 } }, "\u21A9 Sign Out"))), DB.announcements.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { background: `linear-gradient(90deg,${C.orange}22,${C.pink}22)`, borderBottom: `1px solid ${C.orange}33`, padding: "0.5rem 1.25rem", display: "flex", alignItems: "center", gap: "0.5rem" } }, /* @__PURE__ */ React.createElement("span", null, "\u{1F4E2}"), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: C.navy, fontWeight: 700 } }, DB.announcements[0].text), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: C.textMuted, marginLeft: "auto" } }, DB.announcements[0].date)), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, overflow: "auto", padding: "1.25rem" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 880, margin: "0 auto" } }, page === "home" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { background: `linear-gradient(135deg,#1E2D6B,#3B82F6,#06B6D4)`, borderRadius: 20, padding: "1.75rem 2rem", marginBottom: "1.25rem", position: "relative", overflow: "hidden" } }, [["80%", "10%", "120px", "rgba(255,255,255,0.06)"], ["20%", "60%", "80px", "rgba(6,182,212,0.15)"]].map(([l, t, s, bg], i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { position: "absolute", left: l, top: t, width: s, height: s, borderRadius: "50%", background: bg, pointerEvents: "none" } })), /* @__PURE__ */ React.createElement("div", { style: { position: "relative", zIndex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "'Fredoka One',cursive", fontSize: 26, color: "#fff", marginBottom: "0.25rem" } }, "Hello, ", (_b = sess == null ? void 0 : sess.name) == null ? void 0 : _b.split(" ")[0], "! \u{1F680}"), /* @__PURE__ */ React.createElement("p", { style: { color: "rgba(255,255,255,0.8)", margin: "0 0 1.25rem", fontSize: 14, fontWeight: 600 } }, "Ready to explore? You've completed ", allDone, " of ", allTotal, " lessons."), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1.25rem", flexWrap: "wrap" } }, [["\u2705 Done", `${allDone}/${allTotal}`], ["\u2B50 Points", pts], ["\u{1F4C8} Progress", `${Math.round(allDone / allTotal * 100)}%`]].map(([l, v]) => /* @__PURE__ */ React.createElement("div", { key: l }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: "rgba(255,255,255,0.7)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" } }, l), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, fontWeight: 900, color: "#fff" } }, v)))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: "0.75rem" } }, /* @__PURE__ */ React.createElement(ProgressBar, { pct: allDone / allTotal * 100, color: "rgba(255,255,255,0.9)", height: 8 })))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: "0.6rem", marginBottom: "1.25rem" } }, Object.entries(COURSES).map(([id, course]) => {
+    const theme = COURSE_THEMES[id];
+    const done = course.lessons.filter((l) => {
+      var _a2;
+      return (_a2 = sess == null ? void 0 : sess.completions) == null ? void 0 : _a2[l.id];
+    }).length;
+    const pct = Math.round(done / course.lessons.length * 100);
+    return /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        key: id,
+        onClick: () => {
+          setPage("courses");
+          setSelectedCourse(id);
+        },
+        style: { background: C.surface, border: `1.5px solid ${pct > 0 ? theme.color + "44" : C.border}`, borderRadius: 12, padding: "0.85rem 1rem", cursor: "pointer", transition: "all 0.2s" },
+        onMouseEnter: (e) => {
+          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = `0 6px 20px ${theme.color}22`;
+        },
+        onMouseLeave: (e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "none";
+        }
+      },
+      /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, marginBottom: 4 } }, theme.emoji),
+      /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, fontWeight: 900, color: C.navy, marginBottom: 4, lineHeight: 1.2 } }, theme.label),
+      /* @__PURE__ */ React.createElement(ProgressBar, { pct, color: theme.color, height: 5 }),
+      /* @__PURE__ */ React.createElement("div", { style: { fontSize: 10, color: C.textMuted, marginTop: 3, fontWeight: 700 } }, done, "/", course.lessons.length)
+    );
+  })), ((sess == null ? void 0 : sess.activityLog) || []).length > 0 && /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" } }, /* @__PURE__ */ React.createElement("h3", { style: { color: C.navy, margin: 0, fontWeight: 900, fontSize: 15 } }, "Recent Activity"), /* @__PURE__ */ React.createElement("button", { onClick: () => setPage("activity"), style: { background: C.blueDim, border: "none", color: C.blue, borderRadius: 8, padding: "3px 10px", fontSize: 11, cursor: "pointer", fontWeight: 800, fontFamily: "inherit" } }, "See All")), ((sess == null ? void 0 : sess.activityLog) || []).slice(0, 5).map((log, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", gap: "0.75rem", alignItems: "center", padding: "0.45rem 0", borderBottom: i < 4 ? `1px solid ${C.border}` : "none" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textDim, fontWeight: 700, whiteSpace: "nowrap", minWidth: 55 } }, fmt.ago(log.ts)), /* @__PURE__ */ React.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, fontWeight: 800, color: C.navy } }, log.action), log.course && /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: C.textMuted, fontWeight: 600 } }, " \xB7 ", log.course)))))), page === "courses" && !selectedCourse && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1rem", fontSize: 22, fontWeight: 900 } }, "All Courses"), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: "0.75rem" } }, Object.entries(COURSES).map(([id, course]) => {
+    const theme = COURSE_THEMES[id];
+    const done = course.lessons.filter((l) => {
+      var _a2;
+      return (_a2 = sess == null ? void 0 : sess.completions) == null ? void 0 : _a2[l.id];
+    }).length;
+    const pct = Math.round(done / course.lessons.length * 100);
+    return /* @__PURE__ */ React.createElement(Card, { key: id, onClick: () => setSelectedCourse(id), style: { borderColor: pct > 0 ? theme.color + "44" : C.border } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "0.75rem", marginBottom: "0.75rem", alignItems: "flex-start" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 34 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 900, color: C.navy, fontSize: 15 } }, theme.label), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textMuted, fontWeight: 700, margin: "2px 0 4px" } }, course.lessons.length, " lessons"), /* @__PURE__ */ React.createElement(Badge, { text: pct === 100 ? "\u2713 Complete" : `${done}/${course.lessons.length} done`, color: pct === 100 ? C.green : theme.color }))), /* @__PURE__ */ React.createElement(ProgressBar, { pct, color: theme.color, height: 6 }));
+  }))), page === "courses" && selectedCourse && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("button", { onClick: () => setSelectedCourse(null), style: { display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", color: C.textMuted, cursor: "pointer", fontSize: 13, fontWeight: 700, marginBottom: "1rem", fontFamily: "inherit" } }, "\u2190 All Courses"), /* @__PURE__ */ React.createElement(
+    CourseView,
+    {
+      courseId: selectedCourse,
+      studentId,
+      onLesson: (lesson) => {
+        setSelectedLesson(lesson);
+      },
+      onBack: () => setSelectedCourse(null)
+    }
+  )), page === "activity" && /* @__PURE__ */ React.createElement(StudentActivityLog, { studentId }), page === "progress" && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { style: { color: C.navy, margin: "0 0 1.25rem", fontSize: 22, fontWeight: 900 } }, "My Progress"), /* @__PURE__ */ React.createElement(Card, { style: { marginBottom: "1.25rem" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("div", { style: { width: 56, height: 56, borderRadius: "50%", background: `linear-gradient(135deg,${C.blue},${C.cyan})`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 900, color: "#fff" } }, (_c = sess == null ? void 0 : sess.name) == null ? void 0 : _c.charAt(0)), /* @__PURE__ */ React.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 900, color: C.navy, fontSize: 18 } }, sess == null ? void 0 : sess.name), /* @__PURE__ */ React.createElement("div", { style: { color: C.textMuted, fontSize: 13, fontWeight: 700 } }, sess == null ? void 0 : sess.id, (sess == null ? void 0 : sess.year) > 0 ? ` \xB7 Year ${sess == null ? void 0 : sess.year}` : " \xB7 Teacher")), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "right" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 28, fontWeight: 900, color: C.orange } }, pts), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, color: C.textMuted, fontWeight: 700 } }, "Total Points \u2B50")))), Object.entries(COURSES).map(([id, course]) => {
+    const theme = COURSE_THEMES[id];
+    const done = course.lessons.filter((l) => {
+      var _a2;
+      return (_a2 = sess == null ? void 0 : sess.completions) == null ? void 0 : _a2[l.id];
+    }).length;
+    const pct = Math.round(done / course.lessons.length * 100);
+    const scores = course.lessons.map((l) => {
+      var _a2;
+      return (_a2 = sess == null ? void 0 : sess.quizScores) == null ? void 0 : _a2[l.id];
+    }).filter(Boolean);
+    const avgScore = scores.length ? Math.round(scores.reduce((s, q) => s + q.pct, 0) / scores.length) : null;
+    return /* @__PURE__ */ React.createElement(Card, { key: id, style: { marginBottom: "0.6rem" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: "0.75rem", alignItems: "center", marginBottom: "0.6rem" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 22 } }, theme.emoji), /* @__PURE__ */ React.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ React.createElement("div", { style: { fontWeight: 900, color: C.navy, fontSize: 14 } }, theme.label), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: C.textMuted, fontWeight: 700 } }, done, "/", course.lessons.length, " lessons", avgScore != null ? ` \xB7 Avg quiz: ${avgScore}%` : "")), pct === 100 && /* @__PURE__ */ React.createElement(Badge, { text: "\u{1F389} Complete!", color: C.green })), /* @__PURE__ */ React.createElement(ProgressBar, { pct, color: theme.color, height: 7 }), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 4, marginTop: "0.65rem", flexWrap: "wrap" } }, course.lessons.map((l) => {
+      var _a2, _b2;
+      const c = !!((_a2 = sess == null ? void 0 : sess.completions) == null ? void 0 : _a2[l.id]);
+      const sc = (_b2 = sess == null ? void 0 : sess.quizScores) == null ? void 0 : _b2[l.id];
+      return /* @__PURE__ */ React.createElement("div", { key: l.id, title: l.title, style: { width: 30, height: 30, borderRadius: 6, background: c ? (sc == null ? void 0 : sc.pct) >= 80 ? C.greenDim : C.blueDim : "#F3F4F6", border: `1.5px solid ${c ? (sc == null ? void 0 : sc.pct) >= 80 ? C.green : C.blue : "#E5E7EB"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: c ? (sc == null ? void 0 : sc.pct) >= 80 ? C.green : C.blue : C.textDim, fontWeight: 900 } }, c ? (sc == null ? void 0 : sc.pct) >= 80 ? "\u2605" : "\u2713" : "\xB7");
+    })));
+  })), page === "certificates" && /* @__PURE__ */ React.createElement(CertificateView, { studentId }))));
+};
+function App() {
+  const [user, setUser] = useState(null);
+  if (!user) return /* @__PURE__ */ React.createElement(Login, { onLogin: (id, role) => setUser({ id, role }) });
+  if (user.role === "admin") return /* @__PURE__ */ React.createElement(AdminPanel, { onLogout: () => setUser(null) });
+  return /* @__PURE__ */ React.createElement(Platform, { studentId: user.id, onLogout: () => {
+    addLog(user.id, "Logged out", "", "", "", 0);
+    setUser(null);
+  } });
+}
+
+  </script>
+</body>
+</html>
